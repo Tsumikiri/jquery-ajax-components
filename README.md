@@ -6,3 +6,6 @@ This plugin initializes ajax components that make ajax requests when specified e
 
 ## What it Doesn't Do
 You must create your own server-side implementation for delivering compatible JSON responses. Usually this involves a server-side scripting language like PHP or Python, some database queries, etc.
+
+## Requirements
+This plugin requries [jQuery](https://jquery.com/download/), [serializeObject](https://github.com/hongymagic/jQuery.serializeObject), and [SweetAlert](http://t4t5.github.io/sweetalert/).
