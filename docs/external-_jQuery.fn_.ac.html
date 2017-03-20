@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: ac</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: ac</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="external-_jQuery.fn_.html">"jQuery.fn"</a>.</span>ac</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">This namespace includes just two items: the main plugin function (detailed below) and the <a href="external-_jQuery.fn_.ac.config.html">config</a> sub-namespace.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+        <h3 class="subsection-title">Namespaces</h3>
+
+        <dl>
+            <dt><a href="external-_jQuery.fn_.ac.config.html">config</a></dt>
+            <dd>The plugin configuration object</dd>
+        </dl>
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".$.fn.ac"><span class="type-signature">(static) </span>$.fn.ac<span class="signature">(eventName, filterSelector, ajaxOptions, alertOptions)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+    <p class="summary">The plugin function</p>
+    
+
+
+
+<div class="description">
+    This is the main function for this plugin. It binds an event to a page element.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>eventName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of an event to use for the binding, such as <code>'click'</code> or <code>'submit'</code></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filterSelector</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A filter selector for delegated binding</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ajaxOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The options to use for ajax requests made by this component</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>alertOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The options to use for alerts created by this component</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The jQuery result set is returned by this method, allowing for chaining.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Initializing an ajax link</p>
+    
+    <pre class="prettyprint"><code>$('#my-link').ac('click', {    url: '/path/to/remote/content/'});</code></pre>
+
+        <p class="code-caption">Initializing an ajax form</p>
+    
+    <pre class="prettyprint"><code>$('#my-form').ac('submit');</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Externals</h3><ul><li><a href="external-_jQuery.fn_.html">jQuery.fn</a></li></ul><h3>Namespaces</h3><ul><li><a href="external-_jQuery.fn_.ac.html">ac</a></li><li><a href="external-_jQuery.fn_.ac.config.html">config</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-0start.html">Getting Started</a></li><li><a href="tutorial-attributes.html">Data Attributes</a></li><li><a href="tutorial-delegated.html">Delegated Events</a></li><li><a href="tutorial-form.html">Form Data</a></li><li><a href="tutorial-input.html">Input Alerts</a></li><li><a href="tutorial-server.html">Server Response</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Mon Mar 20 2017 15:47:41 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
