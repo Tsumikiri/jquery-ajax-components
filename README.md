@@ -1,5 +1,5 @@
 # jQuery Ajax Components
-jQuery plugin for binding event handlers to page elements to fetch dynamic a page content via ajax. Check out the [documentation](https://cdn.rawgit.com/tsumikiri/jquery-ajax-components/master/index.html) (generated with [JSDoc](http://usejsdoc.org/)).
+jQuery plugin for binding event handlers to page elements to fetch dynamic a page content via ajax. Check out the [documentation](https://cdn.rawgit.com/tsumikiri/jquery-ajax-components/master/docs/index.html) (generated with [JSDoc](http://usejsdoc.org/)).
 
 ## What it Does
 This plugin initializes ajax components that make ajax requests when specified events are triggered. The work of making the ajax request and processing the returned server response is handled by the plugin. The plugin also supports delegated events and data attributes.
