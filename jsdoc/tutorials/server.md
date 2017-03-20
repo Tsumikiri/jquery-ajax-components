@@ -34,7 +34,7 @@ $(function() {
 ```json
 {
 	"content": {
-	"#div1": "Some new content!",
+		"#div1": "Some new content!",
 		"#div2": "Some other new content!"
 	},
 	"remove": [ "#div3", "#div4" ],
