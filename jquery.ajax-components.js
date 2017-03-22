@@ -9,7 +9,43 @@
 
 /**
  * @external "jQuery.fn"
+ * @description This plugin requires jQuery. This plugin will add {@linkcode ac|ac} to <code>$.fn</code>.
  * @see {@link http://docs.jquery.com/Plugins/Authoring The jQuery Plugin Guide|jQuery Plugin Guide}
+ */
+
+/**
+ * @callback ajaxDoneCallback
+ * @see {@linkcode http://api.jquery.com/deferred.done/|jQuery Done Callback}
+ * @param {Object} data - The response data.
+ */
+
+/**
+ * @callback ajaxErrorCallback
+ * @see {@linkcode http://api.jquery.com/deferred.fail/|jQuery Fail Callback}
+ * @param {Object} jqXHR - The {@link http://api.jquery.com/jQuery.ajax/#jqXHR|jQuery XHR object} for the ajax request.
+ * @param {string} statusText - Text representing the status of the request.
+ * @param {string} errorThrown - Text representing the error that was thrown.
+ */
+
+/**
+ * @callback ajaxAlwaysCallback
+ * @see {@linkcode http://api.jquery.com/deferred.always/|jQuery Always Callback}
+ */
+
+/**
+ * @callback objectResponseCallback
+ * @see {@linkcode http://api.jquery.com/jquery.each/|jQuery Each}
+ * @summary A callback function used to loop over an object in an ajax response.
+ * @param {string} key - The current key from the object to process.
+ * @param value - The value assigned to the current key.
+ */
+
+/**
+ * @callback arrayResponseCallback
+ * @see {@linkcode http://api.jquery.com/jquery.each/|jQuery Each}
+ * @summary A callback function used to loop over an array in an ajax response.
+ * @param {number} index - The current index from the array to process.
+ * @param value - The value assigned to the current index.
  */
 
 (function($) {
@@ -18,19 +54,19 @@
 	 * @name ac
 	 * @namespace external:"jQuery.fn".ac
 	 * @summary The plugin namespace
-	 * @description This namespace includes just two items: the main plugin function (detailed below) and the {@link external:"jQuery.fn".ac.config|config} sub-namespace.
+	 * @description This namespace includes just two items: the main plugin function (detailed below) and the {@link external:"jQuery.fn".ac.config|config} sub-namespace, which holds configurable plugin settings.
 	 */
 	
 	/**
 	 * @memberof external:"jQuery.fn".ac
 	 * @function
-	 * @summary The plugin function
-	 * @description This is the main function for this plugin. It binds an event to a page element.
-	 * @example <caption>Initializing an ajax link</caption>
+	 * @summary The plugin function.
+	 * @description This is the main function for this plugin. It binds a special event handler to the given page element(s). This handler makes an ajax request which must return a JSON response. That response can leverage several special keys (<code>"content"</code> is the most common) to manipulate the page. Read more about this in the {@tutorial server|Server Response tutorial}.
+	 * @example <caption>Initializing an ajax link. Alternatively, you can leave out the second argument and instead use a data attribute on the anchor tag e.g. <code>data-ac-ajax-url="/path/to/remote/function/"</code>.</caption>
 	 * $('#my-link').ac('click', {
-	 *     url: '/path/to/remote/content/'
+	 *     url: '/path/to/remote/function/'
 	 * });
-	 * @example <caption>Initializing an ajax form</caption>
+	 * @example <caption>Initializing an ajax form. The URL and method will be automatically taken from the form's <code>action</code> and <code>method</code> attributes.</caption>
 	 * $('#my-form').ac('submit');
 	 * @param {string} eventName - The name of an event to use for the binding, such as <code>'click'</code> or <code>'submit'</code>
 	 * @param {string} filterSelector - A filter selector for delegated binding
@@ -55,28 +91,33 @@
 	/**
 	 * @name ac.config
 	 * @namespace external:"jQuery.fn".ac.config
-	 * @summary The plugin configuration object
+	 * @summary The plugin configuration object.
 	 * @description These configuration options can be used to change how the plugin behaves.
-	 * @example <caption>Setting a config property</caption>
+	 * @example <caption>In this code snippet, we set the value of a config property.</caption>
 	 * $.fn.ac.config.alertAllowEmpty = false;
-	 * @property {function(Object)} doneHandler - Callback to use for successful ajax calls
-	 * @property {function(Object,string,string)} errorHandler - Callback to use for failed ajax calls
-	 * @property {function()} alwaysHandler - Callback to use for all ajax calls
-	 * @property {function(string,string)} responseHandlers.content - Server response handler for inserting page content
-	 * @property {function(string,string)} responseHandlers.remove - Server response handler for removing page content
-	 * @property {function(string,string)} responseHandlers.hide - Server response handler for hiding page content
-	 * @property {function(string,string)} responseHandlers.show - Server response handler for showing page content
-	 * @property {RegExp} ajaxAttrRegex - Regular expression used to match data-* attributes the specify ajax options
-	 * @property {RegExp} alertAttrRegex - Regular expression used to match data-* attributes that specify alert options
-	 * @property {string} eventSuffix - String appended to the name of any event that is bound using this plugin
-	 * @property {boolean} preventDefault - Whether or not to call <code>.preventDefault()</code> in the event handler
-	 * @property {boolean} stopPropagation - Whether or not to call <code>.stopPropagation()</code> in the event handler
-	 * @property {boolean} eventReturn - Value to return from the event handler
-	 * @property {string} alertInputDataKey - Key to use for data sent by input alerts
-	 * @property {boolean} alertAllowEmpty - Whether or not to allow empty strings to be submitted from input alerts
-	 * @property {Object} ajaxDefaults - The default values to use for ajax options
-	 * @property {Object} alertDefaults - The default values to use for alert options
-	 * @property {function(Object)} swal - Points to the <code>swal()</code> function from the Sweet Alert plugin
+	 * @example <caption>Adding a new response processor. This processor will take an array of selectors and run jQuery's <code>.slideUp()</code> on each one.</caption>
+	 * $.fn.ac.config.responseHandlers.slideUp = function(index, selector) {
+	 *     $(selector).slideUp();
+	 * };
+	 * //Example of expected server response: { "slideUp": [ "#div-to-slide-up", "#other-div-to-slide-up" ] }
+	 * @property {ajaxDoneCallback} doneHandler - Callback to use for successful ajax calls.
+	 * @property {ajaxErrorCallback} errorHandler - Callback to use for failed ajax calls.
+	 * @property {ajaxAlwaysCallback} alwaysHandler - Callback to use for all ajax calls.
+	 * @property {objectResponseCallback|arrayResponseCallback} responseHandlers.content - Server response handler for inserting page content.
+	 * @property {objectResponseCallback|arrayResponseCallback} responseHandlers.remove - Server response handler for removing page content.
+	 * @property {objectResponseCallback|arrayResponseCallback} responseHandlers.hide - Server response handler for hiding page content.
+	 * @property {objectResponseCallback|arrayResponseCallback} responseHandlers.show - Server response handler for showing page content.
+	 * @property {RegExp} ajaxAttrRegex - Regular expression used to match data-* attributes the specify ajax options.
+	 * @property {RegExp} alertAttrRegex - Regular expression used to match data-* attributes that specify alert options.
+	 * @property {string} eventSuffix - String appended to the name of any event that is bound using this plugin.
+	 * @property {boolean} preventDefault - Whether or not to call <code>.preventDefault()</code> in the event handler.
+	 * @property {boolean} stopPropagation - Whether or not to call <code>.stopPropagation()</code> in the event handler.
+	 * @property {boolean} eventReturn - Value to return from the event handler.
+	 * @property {string} alertInputDataKey - Key to use for data sent by input alerts.
+	 * @property {boolean} alertAllowEmpty - Whether or not to allow empty strings to be submitted from input alerts.
+	 * @property {Object} ajaxDefaults - The default values to use for ajax options.
+	 * @property {Object} alertDefaults - The default values to use for alert options.
+	 * @property {function} swal - Points to the <code>swal()</code> function from the Sweet Alert plugin. If Sweet Alert is not available, the plugin will make due with built-in alert functions.
 	 */
 	$.fn.ac.config = {
 		doneHandler: null,
