@@ -1,6 +1,6 @@
 /**
  * @author Alex Furey
- * @version 1.0.0
+ * @version 1.0.1
  * @requires jQuery
  * @requires serializeObject
  * @requires sweetAlert
@@ -61,7 +61,7 @@
 	 * @memberof external:"jQuery.fn".ac
 	 * @function
 	 * @summary The plugin function.
-	 * @description This is the main function for this plugin. It binds a special event handler to the given page element(s). This handler makes an ajax request which must return a JSON response. That response can leverage several special keys (<code>"content"</code> is the most common) to manipulate the page. Read more about this in the {@tutorial server|Server Response tutorial}.
+	 * @description This is the main function for this plugin. It binds a special event handler to the given page element(s). This handler makes an ajax request which must return a JSON response. That response can leverage several special keys (<code>"content"</code> is the most common) to manipulate the page. Read more about this in the Server Response tutorial.
 	 * @example <caption>Initializing an ajax link. Alternatively, you can leave out the second argument and instead use a data attribute on the anchor tag e.g. <code>data-ac-ajax-url="/path/to/remote/function/"</code>.</caption>
 	 * $('#my-link').ac('click', {
 	 *     url: '/path/to/remote/function/'
@@ -161,22 +161,22 @@
 	 * @constant
 	 * @default
 	 */
-	const ajaxKey             = 'ajax';
+	var ajaxKey = 'ajax';
 	/**
 	 * @private
 	 * @constant
 	 * @default
 	 */
-	const alertKey            = 'alert';
+	var alertKey = 'alert';
 	
 	/**
 	 * @private
 	 * @function
 	 * @summary Process server response
-	 * @see $.fn.ac.configresponseHandlers
+	 * @see $.fn.ac.config.responseHandlers
 	 */
 	function processResponse(data) {
-		$.each($.fn.ac.configresponseHandlers, function(key, handler) {
+		$.each($.fn.ac.config.responseHandlers, function(key, handler) {
 			if (key in data) {
 				if ($.isPlainObject(data[key]) || $.isArray(data[key])) {
 					$.each(data[key], handler);
@@ -195,7 +195,7 @@
 	 * @returns {Object} jqXHR
 	 */
 	function ajaxWrapper(opts) {
-		return $.ajax($.extend(true, {}, $.fn.ac.configajaxDefaults, opts)).done(processResponse).done($.fn.ac.configdoneHandler).error($.fn.ac.configerrorHandler).always($.fn.ac.configalwaysHandler);
+		return $.ajax($.extend(true, {}, $.fn.ac.config.ajaxDefaults, opts)).done(processResponse).done($.fn.ac.config.doneHandler).error($.fn.ac.config.errorHandler).always($.fn.ac.config.alwaysHandler);
 	}
 	
 	/**
@@ -210,17 +210,17 @@
 			if (input === false || input === null) {
 				return false;
 			}
-			if (!$.fn.ac.configalertAllowEmpty && input === '') {
+			if (!$.fn.ac.config.alertAllowEmpty && input === '') {
 				return false;
 			}
 			if (typeof input === 'string') {
-				objectParam(ajaxOpts, 'data')[$.fn.ac.configalertInputDataKey] = input;
+				objectParam(ajaxOpts, 'data')[$.fn.ac.config.alertInputDataKey] = input;
 			}
 			ajaxWrapper(ajaxOpts);
 		};
-		alertOpts = $.extend(true, {}, $.fn.ac.configalertDefaults, alertOpts);
-		if (typeof $.fn.ac.configswal === 'function') {
-			$.fn.ac.configswal(alertOpts, handler);
+		alertOpts = $.extend(true, {}, $.fn.ac.config.alertDefaults, alertOpts);
+		if (typeof $.fn.ac.config.swal === 'function') {
+			$.fn.ac.config.swal(alertOpts, handler);
 		} else if ('type' in alertOpts && alertOpts.type === 'input') {
 			handler(prompt(alertOpts.title + (alertOpts.text ? '\n' + alertOpts.text : ''), ('inputValue' in alertOpts ? alertOpts.inputValue : '')));
 		} else if ('showCancelButton' in alertOpts && alertOpts.showCancelButton) {
@@ -330,8 +330,8 @@
 	 * @param element - A jQuery result set containing a single page element from which to pull data
 	 */
 	function extendWithData(data, element) {
-		$.extend(true, objectParam(data, alertKey), getMarkupData(element, $.fn.ac.configalertAttrRegex));
-		$.extend(true, objectParam(data, ajaxKey), getMarkupData(element, $.fn.ac.configajaxAttrRegex));
+		$.extend(true, objectParam(data, alertKey), getMarkupData(element, $.fn.ac.config.alertAttrRegex));
+		$.extend(true, objectParam(data, ajaxKey), getMarkupData(element, $.fn.ac.config.ajaxAttrRegex));
 		extendWithFormData(data, element);
 	}
 	
@@ -346,22 +346,22 @@
 		//IMPORTANT: deep copy the event data before meddling with it
 		var data = $.extend(true, {}, event.data);
 		var element = this;
-		if (event.target !== event.delegateTarget) {
+		if (element !== event.delegateTarget) {
 			extendWithData(data, event.delegateTarget);
 		}
-		extendWithData(data, event.target);
+		extendWithData(data, element);
 		if (alertKey in data && data[alertKey] && !$.isEmptyObject(data[alertKey])) {
 			alertWrapper(data[alertKey], data[ajaxKey]);
 		} else {
 			ajaxWrapper(data[ajaxKey]);
 		}
-		if ($.fn.ac.configstopPropagation) {
+		if ($.fn.ac.config.stopPropagation) {
 			event.stopPropagation();
 		}
-		if ($.fn.ac.configpreventDefault) {
+		if ($.fn.ac.config.preventDefault) {
 			event.preventDefault();
 		}
-		return $.fn.ac.configeventReturn;
+		return $.fn.ac.config.eventReturn;
 	}
 	
 	/**
@@ -380,7 +380,7 @@
 		var opts = {};
 		opts[ajaxKey] = ajax;
 		opts[alertKey] = alert;
-		$(this).on(event + $.fn.ac.configeventSuffix, selector, opts, componentEventHandler);
+		$(this).on(event + $.fn.ac.config.eventSuffix, selector, opts, componentEventHandler);
 		return this;
 	}
 	
