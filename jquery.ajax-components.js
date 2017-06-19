@@ -101,10 +101,15 @@
 	 * @property {ajaxDoneCallback} doneHandler - Callback to use for successful ajax calls.
 	 * @property {ajaxErrorCallback} errorHandler - Callback to use for failed ajax calls.
 	 * @property {ajaxAlwaysCallback} alwaysHandler - Callback to use for all ajax calls.
-	 * @property {objectResponseCallback|arrayResponseCallback} responseHandlers.content - Server response handler for inserting page content.
-	 * @property {objectResponseCallback|arrayResponseCallback} responseHandlers.remove - Server response handler for removing page content.
-	 * @property {objectResponseCallback|arrayResponseCallback} responseHandlers.hide - Server response handler for hiding page content.
-	 * @property {objectResponseCallback|arrayResponseCallback} responseHandlers.show - Server response handler for showing page content.
+	 * @property {Object.<string,(objectResponseCallback|arrayResponseCallback)>} responseHandlers - An object that handles keys returned by the server.
+	 * @property {objectResponseCallback} responseHandlers.content - Server response handler for inserting page content.
+	 * @property {arrayResponseCallback} responseHandlers.remove - Server response handler for removing page content.
+	 * @property {arrayResponseCallback} responseHandlers.hide - Server response handler for hiding page content.
+	 * @property {arrayResponseCallback} responseHandlers.show - Server response handler for showing page content.
+	 * @property {arrayResponseCallback} responseHandlers.hideModal - Server response handler for hiding bootstrap modals.
+	 * @property {arrayResponseCallback} responseHandlers.showModal - Server response handler for showing bootstrap modals.
+	 * @property {objectResponseCallback} responseHandlers.append - Server response handler for appending page content.
+	 * @property {objectResponseCallback} responseHandlers.prepend - Server response handler for prepending page content.
 	 * @property {RegExp} ajaxAttrRegex - Regular expression used to match data-* attributes the specify ajax options.
 	 * @property {RegExp} alertAttrRegex - Regular expression used to match data-* attributes that specify alert options.
 	 * @property {string} eventSuffix - String appended to the name of any event that is bound using this plugin.
@@ -410,3 +415,4 @@
 	}
 	
 })(jQuery);
+
