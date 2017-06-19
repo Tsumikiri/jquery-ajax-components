@@ -1,9 +1,7 @@
 /**
  * @author Alex Furey
- * @version 1.0.1
+ * @version 1.0.2
  * @requires jQuery
- * @requires serializeObject
- * @requires sweetAlert
  * @description A jQuery plugin for binding ajax functionality to page components
  */
 
@@ -118,6 +116,7 @@
 	 * @property {Object} ajaxDefaults - The default values to use for ajax options.
 	 * @property {Object} alertDefaults - The default values to use for alert options.
 	 * @property {function} swal - Points to the <code>swal()</code> function from the Sweet Alert plugin. If Sweet Alert is not available, the plugin will make due with built-in alert functions.
+	 * @property {function} serializeObject - Points to a jQuery <code>serializeObject</code> function. Included since 1.0.2 (no longer requires the plugin). Override with your own implementation if the included one is not satisfactory. Takes the form tag as <code>this</code> and no other arguments.
 	 */
 	$.fn.ac.config = {
 		doneHandler: null,
@@ -135,6 +134,18 @@
 			},
 			show: function(index, selector) {
 				$(selector).show();
+			},
+			hideModal: function(index, selector) {
+				$(selector).modal('hide');
+			},
+			showMOdal: function(index, selector) {
+				$(selector).modal('show');
+			},
+			append: function(selector, content) {
+				$(selector).append(content);
+			},
+			prepend: function(selector, content) {
+				$(selector).prepend(content);
 			}
 		},
 		ajaxAttrRegex: /acAjax(Accepts|Contents|Context|Converters|Data|Headers|StatusCode|XhrFields)?([a-z]*)/i,
@@ -153,7 +164,20 @@
 			type: 'warning',
 			showCancelButton: true
 		},
-		swal: (typeof swal === 'function' ? swal : null)
+		swal: (typeof swal === 'function' ? swal : null),
+		//serializeObject: (typeof $.fn.serializeObject === 'function' ? $.fn.serializeObject : null)
+		serializeObject: function() {
+			var result = {};
+			$.each(this.serializeArray(), function(index, element) {
+				var node = result[element.name];
+				if ('undefined' !== typeof node && node !== null) {
+					result[element.name] = node + ',' + element.value;
+				} else {
+					result[element.name] = element.value;
+				}
+			});
+			return result;
+		}
 	};
 	
 	/**
@@ -195,7 +219,7 @@
 	 * @returns {Object} jqXHR
 	 */
 	function ajaxWrapper(opts) {
-		return $.ajax($.extend(true, {}, $.fn.ac.config.ajaxDefaults, opts)).done(processResponse).done($.fn.ac.config.doneHandler).error($.fn.ac.config.errorHandler).always($.fn.ac.config.alwaysHandler);
+		return $.ajax($.extend(true, {}, $.fn.ac.config.ajaxDefaults, opts)).done(processResponse).done($.fn.ac.config.doneHandler).fail($.fn.ac.config.errorHandler).always($.fn.ac.config.alwaysHandler);
 	}
 	
 	/**
@@ -318,7 +342,8 @@
 		if ($(element).prop('tagName') === 'FORM') {
 			data.ajax.url = $(element).attr('action') || data.ajax.url;
 			data.ajax.method = $(element).attr('method') || data.ajax.method;
-			$.extend(true, objectParam(data.ajax, 'data'), $(element).serializeObject());
+			$.extend(true, objectParam(data.ajax, 'data'), $.fn.ac.config.serializeObject.call($(element)));
+			//$.extend(true, objectParam(data.ajax, 'data'), $(element).serializeObject());
 		}
 	}
 	
