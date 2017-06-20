@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap External: jQuery.fn</title>
+	<title>DocStrap Tutorial: Server Response</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,132 +81,56 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">External: jQuery.fn</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        jQuery.fn
-        </h2>
-        
-    
+
+    <h2>Server Response</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This plugin requires jQuery. This plugin will add <code>ac</code> to <code>$.fn</code>.</p></div>
-        
-
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>,
-				 <a href="jquery.ajax-components.js.html#sunlight-1-line-8">line 8</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><a href="http://docs.jquery.com/Plugins/Authoring%20The%20jQuery%20Plugin%20Guide">jQuery Plugin Guide</a></li>
-			</ul>
-	</dd>
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="namespaces.html#external:"jQuery.fn".ac"><a href="external-_jQuery.fn_.ac.html">ac</a></a></dt>
-            <dd>The plugin namespace</dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
+    <p>The response returned by the server after making an ajax request must be a JSON object. The JSON object may have zero or more of the following recognized keys: <code>&quot;content&quot;</code>, <code>&quot;remove&quot;</code>, <code>&quot;hide&quot;</code>, <code>&quot;show&quot;</code>. Each key is used to perform a particular action on the page after the response is received. Each of these keys and their functionalities are detailed below.</p>
+<h3><code>content</code></h3><p>The value assigned to this key should be an object. The keys of the object are selectors and the values are HTML content. When the response is received, the handler will replace the content of each selected element with the value using jQuery's <a href="http://api.jquery.com/html/"><code>.html()</code></a> function.</p>
+<h3><code>remove</code></h3><p>The value assigned to this key should be an array. The items in the array are selectors. When the response is received, the handler will call jQuery's <a href="http://api.jquery.com/remove/"><code>.remove()</code></a> function on each selector.</p>
+<h3><code>hide</code></h3><p>The value assigned to this key should be an array. The items in the array are selectors. When the response is received, the handler will call jQuery's <a href="http://api.jquery.com/hide/"><code>.hide()</code></a> function on each selector.</p>
+<h3><code>show</code></h3><p>The value assigned to this key should be an array. The items in the array are selectors. When the response is received, the handler will call jQuery's <a href="http://api.jquery.com/show/"><code>.show()</code></a> function on each selector.</p>
+<h3><code>hideModal</code> and <code>showModal</code></h3><p>The same as <code>hide</code> and <code>show</code> but for bootstrap modals.</p>
+<h3><code>append</code> and <code>prepend</code></h3><p>The same as <code>content</code> but appends or prepends the content instead of replacing it.</p>
+<h3>Example: Full Response</h3><p>This example explains how the server response is processed by the plugin.</p>
+<h5>HTML</h5><pre class="prettyprint source lang-html"><code>&lt;a id=&quot;link&quot;>Click me!&lt;/a>
+&lt;div id=&quot;div1&quot;>&lt;/div>
+&lt;div id=&quot;div2&quot;>&lt;/div>
+&lt;div id=&quot;div3&quot;>&lt;/div>
+&lt;div id=&quot;div4&quot;>&lt;/div>
+&lt;div id=&quot;div5&quot;>&lt;/div>
+&lt;div id=&quot;div6&quot;>&lt;/div>
+&lt;div id=&quot;div7&quot; style=&quot;display: none;&quot;>&lt;/div>
+&lt;div id=&quot;div8&quot; style=&quot;display: none;&quot;>&lt;/div></code></pre><h5>JavaScript</h5><pre class="prettyprint source lang-javascript"><code>$(function() {
+    $('#link').ac('click', null, {
+        url: '/path/to/remote/function/'
+    });
+});</code></pre><h5>Response</h5><pre class="prettyprint source lang-json"><code>{
+    &quot;content&quot;: {
+        &quot;#div1&quot;: &quot;Some new content!&quot;,
+        &quot;#div2&quot;: &quot;Some other new content!&quot;
+    },
+    &quot;remove&quot;: [ &quot;#div3&quot;, &quot;#div4&quot; ],
+    &quot;hide&quot;: [ &quot;#div5&quot;, &quot;#div6&quot; ],
+    &quot;show&quot;: [ &quot;#div7&quot;, &quot;#div8&quot; ]
+}</code></pre><p>After receiving the above response, the content of <code>div1</code> will be set to <code>'Some new content!'</code> and the content of <code>div2</code> to <code>'Some other new content!'</code>. Also, <code>div3</code> and <code>div4</code> will be removed, <code>div5</code> and <code>div6</code> will be hidden, <code>div7</code> and <code>div8</code> will be shown.</p>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

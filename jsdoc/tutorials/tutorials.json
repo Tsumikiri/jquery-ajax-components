@@ -1,20 +1,26 @@
 {
 	"0start": {
-		"title": "Getting Started"
+		"title": "Getting Started",
+		"order": 0
 	},
-	"server": {
-		"title": "Server Response"
+	"1attributes": {
+		"title": "Data Attributes",
+		"order": 1
 	},
-	"delegated": {
-		"title": "Delegated Events"
+	"2form": {
+		"title": "Form Data",
+		"order": 2
 	},
-	"form": {
-		"title": "Form Data"
+	"3delegated": {
+		"title": "Delegated Events",
+		"order": 3
 	},
-	"attributes": {
-		"title": "Data Attributes"
+	"4server": {
+		"title": "Server Response",
+		"order": 4
 	},
-	"input": {
-		"title": "Input Alerts"
+	"5input": {
+		"title": "Input Alerts",
+		"order": 5
 	}
 }

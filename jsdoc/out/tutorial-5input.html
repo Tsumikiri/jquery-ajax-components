@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap External: jQuery.fn</title>
+	<title>DocStrap Tutorial: Input Alerts</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,132 +81,36 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">External: jQuery.fn</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        jQuery.fn
-        </h2>
-        
-    
+
+    <h2>Input Alerts</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This plugin requires jQuery. This plugin will add <code>ac</code> to <code>$.fn</code>.</p></div>
-        
-
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>,
-				 <a href="jquery.ajax-components.js.html#sunlight-1-line-8">line 8</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><a href="http://docs.jquery.com/Plugins/Authoring%20The%20jQuery%20Plugin%20Guide">jQuery Plugin Guide</a></li>
-			</ul>
-	</dd>
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="namespaces.html#external:"jQuery.fn".ac"><a href="external-_jQuery.fn_.ac.html">ac</a></a></dt>
-            <dd>The plugin namespace</dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
+    <p>If an ajax component uses a Sweet Alert of type <code>'input'</code>, the text entered into the input alert will be sent with the request's ajax data. The enetered string will be put into the <code>&quot;input&quot;</code> key of the ajax data.</p>
+<h3>Using an Input Alert</h3><p>This example uses an input alert to pass data to the server.</p>
+<h4>JavaScript</h4><pre class="prettyprint source lang-javascript"><code>$(function() {
+    $('#my-link').ac('click', {
+        url: '/path/to/function/'
+    }, {
+        type: 'input'
+    });
+});</code></pre><h4>HTML</h4><pre class="prettyprint source lang-javascript"><code>&lt;a id=&quot;my-link&quot;>Click Me&lt;/a></code></pre>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

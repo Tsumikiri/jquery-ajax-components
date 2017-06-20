@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap External: jQuery.fn</title>
+	<title>DocStrap Tutorial: Form Data</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,132 +81,36 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">External: jQuery.fn</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        jQuery.fn
-        </h2>
-        
-    
+
+    <h2>Form Data</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This plugin requires jQuery. This plugin will add <code>ac</code> to <code>$.fn</code>.</p></div>
-        
-
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>,
-				 <a href="jquery.ajax-components.js.html#sunlight-1-line-8">line 8</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><a href="http://docs.jquery.com/Plugins/Authoring%20The%20jQuery%20Plugin%20Guide">jQuery Plugin Guide</a></li>
-			</ul>
-	</dd>
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="namespaces.html#external:"jQuery.fn".ac"><a href="external-_jQuery.fn_.ac.html">ac</a></a></dt>
-            <dd>The plugin namespace</dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
+    <p>For form elements, the plugin will automatically add the form data to the ajax request data. The <code>action</code> and <code>method</code> attributes will also be used for the ajax request. The form will be prevented from being submitted normally.</p>
+<h3>Example: Automatically Passing Form Data</h3><p>This example shows how the plugin works with form elements.</p>
+<h4>JavaScript</h4><pre class="prettyprint source lang-javascript"><code>$(function() {
+    $('#my-form').ac('submit');
+});</code></pre><h4>HTML</h4><pre class="prettyprint source lang-html"><code>&lt;form id=&quot;my-form&quot; action=&quot;/path/to/function/&quot; method=&quot;post&quot;>
+    &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;7&quot; />
+    &lt;input type=&quot;text&quot; name=&quot;something&quot; value=&quot;&quot; />
+    &lt;button type=&quot;submit&quot;>Submit&lt;/button>
+&lt;form></code></pre><p>When the form is submitted, the ajax request will send the serialized form data to the URL <code>'/path/to/function/'</code> with the <code>'post'</code> method.</p>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

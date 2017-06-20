@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>DocStrap External: jQuery.fn</title>
+	<title>DocStrap Tutorial: Data Attributes</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -81,132 +81,35 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
-			
-
-	<h1 class="page-title">External: jQuery.fn</h1>
-<section>
+			<section class="tutorial-section">
 
 <header>
     
-        <h2>
-        jQuery.fn
-        </h2>
-        
-    
+
+    <h2>Data Attributes</h2>
 </header>
 
-
 <article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>This plugin requires jQuery. This plugin will add <code>ac</code> to <code>$.fn</code>.</p></div>
-        
-
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>,
-				 <a href="jquery.ajax-components.js.html#sunlight-1-line-8">line 8</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li><a href="http://docs.jquery.com/Plugins/Authoring%20The%20jQuery%20Plugin%20Guide">jQuery Plugin Guide</a></li>
-			</ul>
-	</dd>
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Namespaces</h3>
-
-        <dl>
-            <dt><a href="namespaces.html#external:"jQuery.fn".ac"><a href="external-_jQuery.fn_.ac.html">ac</a></a></dt>
-            <dd>The plugin namespace</dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
+    <p>Instead of making an initializer call for every ajax component on your page, you can make a generic call and use data attributes to customize each component.<br>Use <code>data-ac-ajax-*</code> attributes to set ajax settings. For example, using the <code>data-ac-ajax-url=&quot;/path/to/function/&quot;</code> attribute is the same as passing <code>{ url: '/path/to/function' }</code> as the intializer's <code>ajaxOptions</code> argument. Use <code>data-ac-alert-*</code> to set alert options.</p>
+<h3>Example: Using Data Attributes</h3><p>In this example, we will use data attributes to avoid having to call the initializer on every ajax component.</p>
+<h4>JavaScript</h4><pre class="prettyprint source lang-javascript"><code>$(function() {
+    $('.ajax-link').ac('click');
+});</code></pre><h4>HTML</h4><pre class="prettyprint source lang-javascript"><code>&lt;a class=&quot;ajax-link&quot; data-ac-ajax-url=&quot;/path/to/function1/&quot; data-ac-ajax-data-hello=&quot;world&quot; data-ac-alert-title=&quot;Test 1&quot;>Link 1&lt;/a>
+&lt;a class=&quot;ajax-link&quot; data-ac-ajax-url=&quot;/path/to/function2/&quot; data-ac-ajax-data-foo=&quot;bar&quot; data-ac-alert-title=&quot;Test 2&quot;>Link 2&lt;/a></code></pre><p>In this HTML snippet, the first link will first prompt the user with a Sweet Alert with the title <code>'Test 1'</code>, then it will make an ajax request to the URL <code>'/path/to/function1'</code> with the data <code>{ hello: 'world' }</code>. The second link will prompt with the title <code>'Test 2'</code> then make an ajax request to <code>'/path/to/function2'</code> with the data <code>{ foo: 'bar' }</code>. Notice that in the JavaScript we only have to make one call to the initializer.</p></p>
+<h3>Changing Attributes</h3><p>Data attributes are read every time the event fires. This means that if the data attributes are changed programmatically, you do not have to re-run the initializer.</p>
+<h3>JSON in Attributes</h3><p>If an attribute value is valid JSON, the plugin will automatically parse it. This allows for more complex values to be passed in through the data attributes. For example, <code>data-ac-ajax='{&quot;url&quot;:&quot;/some/path/&quot;,&quot;data&quot;:{&quot;foo&quot;:&quot;bar&quot;}}'</code> sets the entire ajax settings object in one attribute. Note that the attribute value in this example is strict JSON rather than JavaScript's object syntax.</p>
 </article>
 
 </section>
-
-
-
 
 		</div>
 	</div>
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>
