@@ -394,8 +394,11 @@
 			//insert a null for the selector argument if it wasn't passed in
 			if (i === 1 && $.isPlainObject(arguments[i])) {
 				params.push(null);
+				params.push(arguments[i]);
+				i++;
+			} else {
+				params.push(arguments[i]);
 			}
-			params.push(arguments[i]);
 		}
 		var deferred = new PseudoDeferred();
 		params.push(deferred);
