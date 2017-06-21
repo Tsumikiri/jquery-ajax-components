@@ -15,3 +15,9 @@
 - Bug fixes
 # 1.2.1
 - Added a promise-like interface for setting up callbacks
+# 1.2.2
+- Added the jQuery.ac function (not to be confused with jQuery#ac)
+- Updated the documentation significantly
+    + Now includes documentation for the PseudoDeferred class
+    + Namespaces are now more correct
+    + Updated several tutorials

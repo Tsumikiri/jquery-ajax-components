@@ -1,1 +1,3 @@
-jsdoc -d M:\plugins\jquery-ajax-components\jsdoc\out -c C:\Users\afurey\AppData\Roaming\npm\node_modules\ink-docstrap\template\jsdoc.conf.json -t C:\Users\afurey\AppData\Roaming\npm\node_modules\ink-docstrap\template -u M:\plugins\jquery-ajax-components\jsdoc\tutorials -a all -R M:\plugins\jquery-ajax-components\jsdoc\readme.md M:\plugins\jquery-ajax-components\jquery.ajax-components.js
+jsdoc -d M:\plugins\jquery-ajax-components\jsdoc\out-all -u M:\plugins\jquery-ajax-components\jsdoc\tutorials -a all M:\plugins\jquery-ajax-components\jquery.ajax-components.js
+
+jsdoc -d M:\plugins\jquery-ajax-components\jsdoc\out -u M:\plugins\jquery-ajax-components\jsdoc\tutorials M:\plugins\jquery-ajax-components\jquery.ajax-components.js
