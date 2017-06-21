@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: config</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: config</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="jQuery.html">jQuery</a><a href="jQuery.html#.ac">.ac</a>.</span>config</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">These configuration options can be used to change how the plugin behaves.</div>
+        
+
+        
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>doneHandler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#AjaxDoneCallback">AjaxDoneCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last">Callback to use for successful ajax calls.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>errorHandler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#AjaxErrorCallback">AjaxErrorCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last">Callback to use for failed ajax calls.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>alwaysHandler</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#AjaxAlwaysCallback">AjaxAlwaysCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last">Callback to use for all ajax calls.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>responseHandlers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object.&lt;string, (<a href="global.html#ObjectCallback">ObjectCallback</a>|<a href="global.html#ArrayCallback">ArrayCallback</a>)></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">An object that handles keys returned by the server.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enableResponseHandlers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">Allows the plugin to use the response callbacks on ajax calls.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>returnDeferred</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">If true, returns a deferred object (like a promise); else, returns the result of the initial jQuery selection.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ajaxAttrRegex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">RegExp</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Regular expression used to match data-* attributes the specify ajax options. Changes not recommended.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>alertAttrRegex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">RegExp</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Regular expression used to match data-* attributes that specify alert options. Changes not recommended.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>initEvent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'ac.init'
+                
+                </td>
+            
+
+            <td class="description last">The name to use for the ajax component initialization event. This event is fired when an ajax component is initialized.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventSuffix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    '.ac'
+                
+                </td>
+            
+
+            <td class="description last">String appended to the name of any event that is bound using this plugin.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>preventDefault</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">Whether or not to call <code>.preventDefault()</code> in the event handler.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stopPropagation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">Whether or not to call <code>.stopPropagation()</code> in the event handler.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>eventReturn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">Value to return from the event handler.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>alertInputDataKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'input'
+                
+                </td>
+            
+
+            <td class="description last">Key to use for data sent by input alerts.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>alertAllowEmpty</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">Whether or not to allow empty strings to be submitted from input alerts.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ajaxDefaults</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#AjaxOptions">AjaxOptions</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The default values to use for ajax options to be passed to <code>$.ajax</code>.
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dataType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'json'
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>alertDefaults</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#AlertOptions">AlertOptions</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The default values to use for alert options to be passed to <code>swal</code>.
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'Are you sure?'
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'warning'
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showCancelButton</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>swal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#SweetAlertFunction">SweetAlertFunction</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Points to the <code>swal()</code> function from the Sweet Alert plugin. If Sweet Alert is not available, the plugin will make due with built-in alert functions (way less awesome).</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>serializeObject</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#SerializeObjectFunction">SerializeObjectFunction</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Points to a jQuery <code>serializeObject</code> function. Included since 1.0.2 (no longer requires the external serializeObject plugin). Override with your own implementation if the included one is not satisfactory. Takes a form tag as <code>this</code> and no other arguments.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line411">line 411</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+            <h3>Examples</h3>
+            
+        <p class="code-caption">In this code snippet, we set the value of a config property.</p>
+    
+    <pre class="prettyprint"><code>$.ac.config.alertAllowEmpty = false;</code></pre>
+
+        <p class="code-caption">Adding a new response processor. This processor will take an array of selectors and run jQuery's <code>.slideUp()</code> on each one.</p>
+    
+    <pre class="prettyprint"><code>$.ac.config.responseHandlers.slideUp = function(index, selector) {    $(selector).slideUp();};//Example of expected server response: { "slideUp": [ "#div-to-slide-up", "#other-div-to-slide-up" ] }</code></pre>
+
+        <p class="code-caption">Using a different <code>serializeObject</code> implementation.</p>
+    
+    <pre class="prettyprint"><code>$.ac.config.serializeObject = $.fn.serializeObject;</code></pre>
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AjaxComponents.PseudoDeferred.html">PseudoDeferred</a></li></ul><h3>Namespaces</h3><ul><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.ac.config.html">config</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-data-attributes.html">Data Attributes</a></li><li><a href="tutorial-delegated-events.html">Delegated Events</a></li><li><a href="tutorial-form-tags.html">Form Data</a></li><li><a href="tutorial-get-started.html">get-started</a></li><li><a href="tutorial-input-alert.html">input-alert</a></li><li><a href="tutorial-server-response.html">Server Response</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 21 2017 14:37:11 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

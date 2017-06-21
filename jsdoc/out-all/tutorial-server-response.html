@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: Server Response</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: Server Response</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>Server Response</h2>
+</header>
+
+<article>
+    <p>The plugin has built-in functionality for interpreting special directives that can be sent back by the server in an ajax response. This functionality is enabled by default but can be disabled via the plugin's configuration.</p>
+<pre class="prettyprint source lang-javascript"><code>$.ac.config.enableResponseHandlers = false;</code></pre><p>In order to take advantage of the plugin's response handlers, the response returned by the server after making an ajax request must be a JSON object. The JSON object may have zero or more recognized directives, detailed below. Each directive is a key in the JSON object.</p>
+<p>After the response is received, each directive is interpreted by the plugin and used to perform a particular action on the page. Each of these directives and their functionalities are detailed below.</p>
+<h3><code>html</code></h3><p>The value assigned to this key should be an object. The keys of the object are <a href="http://api.jquery.com/category/selectors/">jQuery selectors</a> (strings) and the values are HTML content. When the response is received, the handler will replace the content of each selected element with the value using <a href="http://api.jquery.com/html/">jQuery#html</a>.</p>
+<h3><code>append</code> and <code>prepend</code></h3><p>These directives are the same as <code>html</code> but they appends or prepends the content instead of replacing it.</p>
+<h3><code>remove</code></h3><p>The value assigned to this key should be an array. The items in the array are jQuery selectors (strings). When the response is received, the handler will call <a href="http://api.jquery.com/remove/">jQuery#remove</a> on each selector.</p>
+<h3><code>hide</code> and <code>show</code></h3><p>The value assigned to each of these keys should be an array. The items in the array are jQuery selectors (strings). When the response is received, the handler will call <a href="http://api.jquery.com/hide/">jQuery#hide</a> on each selector in the <code>hide</code> array, and it will call <a href="http://api.jquery.com/show/">jQuery#show</a> on each selector in the <code>show</code> array.</p>
+<h3><code>hideModal</code> and <code>showModal</code></h3><p>This directive is the same as <code>hide</code> and <code>show</code> but for bootstrap modals. Calls <a href="http://getbootstrap.com/javascript/#modals-methods">jQuery#modal</a> to hide and show modals.</p>
+<h3>Example: Server Response Directives</h3><p>This example shows how the server response is processed by the plugin.</p>
+<p>Our page has several containers and a link. When the link is clicked, it will send an ajax request to the server. The server will then return a response that contains directives.</p>
+<h5>HTML</h5><pre class="prettyprint source lang-html"><code>&lt;a id=&quot;link&quot;>Click me!&lt;/a>
+&lt;div id=&quot;div1&quot;>&lt;/div>
+&lt;div id=&quot;div2&quot;>&lt;/div>
+&lt;div id=&quot;div3&quot;>Remove me!&lt;/div>
+&lt;div id=&quot;div4&quot;>Remove me, too!&lt;/div>
+&lt;div id=&quot;div5&quot;>Hide me!&lt;/div>
+&lt;div id=&quot;div6&quot;>Hide me, too!&lt;/div>
+&lt;div id=&quot;div7&quot; style=&quot;display: none;&quot;>Show me!&lt;/div>
+&lt;div id=&quot;div8&quot; style=&quot;display: none;&quot;>Show me, too!&lt;/div></code></pre><h5>JavaScript</h5><pre class="prettyprint source lang-javascript"><code>$(function() {
+    $('#link').ac('click', null, {
+        url: '/path/to/remote/function/'
+    });
+});</code></pre><h5>Server Response</h5><pre class="prettyprint source lang-json"><code>{
+    &quot;html&quot;: {
+        &quot;#div1&quot;: &quot;Some new content!&quot;,
+        &quot;#div2&quot;: &quot;Some other new content!&quot;
+    },
+    &quot;remove&quot;: [ &quot;#div3&quot;, &quot;#div4&quot; ],
+    &quot;hide&quot;: [ &quot;#div5&quot;, &quot;#div6&quot; ],
+    &quot;show&quot;: [ &quot;#div7&quot;, &quot;#div8&quot; ]
+}</code></pre><p>The above directives tell the plugin to perform each of the following operations when the ajax response is received.</p>
+<ul>
+<li>Set the HTML content of <code>div1</code> to <code>Some new content!</code></li>
+<li>Set the HTML content of <code>div2</code> to <code>Some other new content!</code></li>
+<li>Remove <code>div3</code> and <code>div4</code> from the DOM</li>
+<li>Hide <code>div5</code> and <code>div6</code></li>
+<li>Show <code>div7</code> and <code>div8</code></li>
+</ul>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AjaxComponents.PseudoDeferred.html">PseudoDeferred</a></li></ul><h3>Namespaces</h3><ul><li><a href="AjaxComponents.html">AjaxComponents</a></li><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.ac.config.html">config</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-data-attributes.html">Data Attributes</a></li><li><a href="tutorial-delegated-events.html">Delegated Events</a></li><li><a href="tutorial-form-tags.html">Form Data</a></li><li><a href="tutorial-get-started.html">get-started</a></li><li><a href="tutorial-input-alert.html">input-alert</a></li><li><a href="tutorial-server-response.html">Server Response</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 21 2017 14:37:17 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
