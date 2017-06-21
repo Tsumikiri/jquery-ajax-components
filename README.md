@@ -11,5 +11,5 @@ You must create your own server-side implementation for delivering compatible JS
 This plugin requries [jQuery](https://jquery.com/download/). The plugin will make use of [SweetAlert](http://t4t5.github.io/sweetalert/) if it is available (recommended). The plugin includes its own implementation of `serializeObject` which can be overridden with your favorite implementation in the plugin configuration.
 
 ### Links
-[User Documentation](https://cdn.rawgit.com/tsumikiri/jquery-ajax-components/master/jsdoc/out/index.html)
-[Developer Documentation](https://cdn.rawgit.com/tsumikiri/jquery-ajax-components/master/jsdoc/out-all/index.html)
+- [User Documentation](https://cdn.rawgit.com/tsumikiri/jquery-ajax-components/master/jsdoc/out/index.html)
+- [Developer Documentation](https://cdn.rawgit.com/tsumikiri/jquery-ajax-components/master/jsdoc/out-all/index.html)
