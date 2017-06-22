@@ -1,7 +1,7 @@
 /**
  * @file Ajax Component jQuery Plugin
  * @author Alex Furey
- * @version 1.2.2
+ * @version 1.2.3
  * @requires jQuery
  * @description A jQuery plugin that provides a shorthand interface for binding ajax functionality to page elements. Includes support for automatically inserting pre-generated HTML content into the DOM based on server response directives. The primary function for this plugin is {@link jQuery#ac}. Check out the {@tutorial getting-started} Guide.
  */
@@ -373,11 +373,14 @@
 	 */
 	$.fn.ac = function() {
 		var params = [];
-		for (var i = 0; j < arguments.length; i++) {
-			if (j === 1 && $.isPlainObject(arguments[i])) {
+		var j = 0;
+		for (var i = 0; j < 4; i++) {
+			if (i === 1 && $.isPlainObject(arguments[i])) {
 				params.push(null); //push null onto the parameters array if the selector argument was left out
+				j++;
 			}
 			params.push(arguments[i]);
+			j++;
 		}
 		var deferred = new PseudoDeferred();
 		params.push(deferred);
@@ -385,7 +388,7 @@
 			initializeComponent.apply(this, params);
 		});
 		return $.ac.config.returnDeferred ? deferred : components;
-	}
+	};
 
 	/**
 	 * @public
@@ -540,8 +543,8 @@
 		for (var i = 0; i < this._doneCallbacks.length; i++) {
 			this._doneCallbacks[i].apply(arguments[0], afterFirst);
 		}
-		for (var i = 0; i < this._alwaysCallbacks.length; i++) {
-			this._alwaysCallbacks[i].apply(arguments[0]);
+		for (var j = 0; j < this._alwaysCallbacks.length; j++) {
+			this._alwaysCallbacks[j].apply(arguments[0]);
 		}
 	};
 
@@ -557,8 +560,8 @@
 		for (var i = 0; i < this._failCallbacks.length; i++) {
 			this._failCallbacks[i].apply(arguments[0], afterFirst);
 		}
-		for (var i = 0; i < this._alwaysCallbacks.length; i++) {
-			this._alwaysCallbacks[i].apply(arguments[0]);
+		for (var j = 0; j < this._alwaysCallbacks.length; j++) {
+			this._alwaysCallbacks[j].apply(arguments[0]);
 		}
 	};
 
