@@ -37,7 +37,7 @@
     <div class="container-overview">
     
         
-            <div class="description">An anonymous scope that encloses all Ajax Component functionality. Members of this namespace are not accessible outside of the plugin script.</div>
+            <div class="description">This anonymous scope encloses all Ajax Component functionality. Members of this namespace are not accessible outside of the plugin script. This reduces namespace pollution and helps to abstract away the underlying implementation of the plugin.</div>
         
 
         
@@ -72,7 +72,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line82">line 82</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line96">line 96</a>
     </li></ul></dd>
     
 
@@ -96,7 +96,7 @@
         <h3 class="subsection-title">Classes</h3>
 
         <dl>
-            <dt><a href="AjaxComponents.PseudoDeferred.html">PseudoDeferred</a></dt>
+            <dt><a href="AjaxComponents-PseudoDeferred.html">PseudoDeferred</a></dt>
             <dd></dd>
         </dl>
     
@@ -110,12 +110,16 @@
 
         
             
-<h4 class="name" id=".ajaxKey"><span class="type-signature">(private, static) </span>ajaxKey<span class="type-signature"></span></h4>
+<h4 class="name" id="~ajaxKey"><span class="type-signature">(private, inner, constant) </span>ajaxKey<span class="type-signature"></span></h4>
 
 
 <p class="summary">The key to use for ajax settings</p>
 
 
+
+<div class="description">
+    Note that changing this value would make other parts of the documentation incorrect.
+</div>
 
 
 
@@ -148,11 +152,16 @@
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li><code>'ajax'</code></li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line90">line 90</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line104">line 104</a>
     </li></ul></dd>
     
 
@@ -170,12 +179,16 @@
 
         
             
-<h4 class="name" id=".alertKey"><span class="type-signature">(private, static) </span>alertKey<span class="type-signature"></span></h4>
+<h4 class="name" id="~alertKey"><span class="type-signature">(private, inner, constant) </span>alertKey<span class="type-signature"></span></h4>
 
 
-<p class="summary">THe key to use for alert settings</p>
+<p class="summary">The key to use for alert settings</p>
 
 
+
+<div class="description">
+    Note that changing this value would make other parts of the documentation incorrect.
+</div>
 
 
 
@@ -208,11 +221,16 @@
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li><code>'alert'</code></li>
+        </ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line97">line 97</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line115">line 115</a>
     </li></ul></dd>
     
 
@@ -239,13 +257,17 @@
 
     
 
-    <h4 class="name" id=".ajaxWrapper"><span class="type-signature">(private, static) </span>ajaxWrapper<span class="signature">(opts, deferred)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="~ajaxWrapper"><span class="type-signature">(private, inner) </span>ajaxWrapper<span class="signature">(opts<span class="signature-attributes">nullable</span>, deferred<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#jqXHR">jqXHR</a>}</span></h4>
 
     
-    <p class="summary">Wrapper for <code>$.ajax</code> with response processing and ajax event handlers included</p>
+    <p class="summary">The plugin's ajax wrapper</p>
     
 
 
+
+<div class="description">
+    Wrapper for <a href="https://api.jquery.com/jQuery.ajax/">jQuery.ajax</a> with response processing and ajax event handlers included. The function takes the default configuration options (see <a href="jQuery.ac.config.html">jQuery.ac.config.ajaxDefaults</a>) and deep-extends them with the given options. Calls <a href="AjaxComponents.html#~processResponse">AjaxComponents~processResponse</a> on success. Calls <a href="jQuery.ac.config.html">jQuery.ac.config.doneHandler</a>, <a href="jQuery.ac.config.html">jQuery.ac.config.errorHandler</a>, and <a href="jQuery.ac.config.html">jQuery.ac.config.alwaysHandler</a> as appropriate when the ajax response is received. This function is also exposed as <a href="jQuery.html#.ac">jQuery.ac</a>. If <code>deferred</code> is passed, this function will call <a href="AjaxComponents-PseudoDeferred.html#resolve">AjaxComponents~PseudoDeferred#resolve</a> or <a href="AjaxComponents-PseudoDeferred.html#reject">AjaxComponents~PseudoDeferred#reject</a> as appropriate when the ajax response is received.
+</div>
 
 
 
@@ -268,6 +290,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -286,17 +310,27 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#AjaxOptions">AjaxOptions</a></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">jQuery Ajax settings object (plugin defaults will be added automatically)</td>
+            <td class="description last">Ajax settings to use</td>
         </tr>
 
     
@@ -309,12 +343,22 @@
             <td class="type">
             
                 
-<span class="param-type">PseudoDeferred</span>
+<span class="param-type"><a href="AjaxComponents-PseudoDeferred.html">AjaxComponents~PseudoDeferred</a></span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
             
 
             
@@ -360,7 +404,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line124">line 124</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line149">line 149</a>
     </li></ul></dd>
     
 
@@ -387,7 +431,7 @@
 
         
 <div class="param-desc">
-    A jqXHR object
+    A jqXHR object as returned by <a href="https://api.jquery.com/jQuery.ajax/">jQuery.ajax</a>
 </div>
 
 
@@ -398,7 +442,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#jqXHR">jqXHR</a></span>
 
 
     </dd>
@@ -413,13 +457,15 @@
 
     
 
-    <h4 class="name" id=".alertWrapper"><span class="type-signature">(private, static) </span>alertWrapper<span class="signature">(alertOpts, ajaxOpts, deferred)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~alertWrapper"><span class="type-signature">(private, inner) </span>alertWrapper<span class="signature">(alertOpts<span class="signature-attributes">opt, nullable</span>, ajaxOpts<span class="signature-attributes">opt, nullable</span>, deferred<span class="signature-attributes">opt, nullable</span>)</span><span class="type-signature"></span></h4>
 
     
-    <p class="summary">Wrapper for <code>swal</code> that can default to built-in alerts if <code>swal</code> is not available</p>
-    
 
 
+
+<div class="description">
+    Wrapper for <code>swal</code> that can default to built-in alerts if <code>swal</code> is not available. The function takes the default configuration options (see <a href="jQuery.ac.config.html">jQuery.ac.config.alertDefaults</a>) and deep-extends them with the given options. If swal is not available, the function will use the built in alert, prompt, or confirm functions. Note that these functions halt JavaScript processing while waiting for user input, whereas SweetAlert does not. Also, if using system alerts the <code>type</code>, <code>title</code>, <code>text</code>, and <code>inputValue</code> settings are avaiable for <code>alertOpts</code>. This function calls <a href="AjaxComponents.html#~ajaxWrapper">AjaxComponents~ajaxWrapper</a> when the user confirms the alert. If the user cancels the alert, nothing happens.
+</div>
 
 
 
@@ -442,6 +488,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -460,17 +508,29 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#AlertOptions">AlertOptions</a></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">Sweet Alert settings object</td>
+            <td class="description last">Sweet Alert settings object. Will extend the default settings (see <a href="jQuery.ac.config.html">jQuery.ac.config.alertDefaults</a>).</td>
         </tr>
 
     
@@ -483,17 +543,29 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#AjaxOptions">AjaxOptions</a></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">jQuery Ajax settings object</td>
+            <td class="description last">jQuery Ajax settings object.</td>
         </tr>
 
     
@@ -506,12 +578,24 @@
             <td class="type">
             
                 
-<span class="param-type">PseudoDeferred</span>
+<span class="param-type"><a href="AjaxComponents-PseudoDeferred.html">AjaxComponents~PseudoDeferred</a></span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
             
 
             
@@ -557,12 +641,21 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line144">line 144</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line171">line 171</a>
     </li></ul></dd>
     
 
     
 
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="AjaxComponents.html#~ajaxWrapper">AjaxComponents~ajaxWrapper</a></li>
+        
+            <li><a href="jQuery.ac.config.html">jQuery.ac.config.swal</a></li>
+        </ul>
+    </dd>
     
 
     
@@ -588,11 +681,15 @@
 
     
 
-    <h4 class="name" id=".componentEventHandler"><span class="type-signature">(private, static) </span>componentEventHandler<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="~componentEventHandler"><span class="type-signature">(private, inner) </span>componentEventHandler<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
 
     
-    <p class="summary">Event handler to bind to initialized components</p>
-    
+
+
+
+<div class="description">
+    Event handler to bind to initialized components. When fired, this function first builds its configuration data, starting with the data attached to the event and deep-merging it with the data attached to the element via data attributes (see <a href="AjaxComponents.html#~extendWithData">AjaxComponents~extendWithData</a>). After building the configuration data, the function checks for the presence of alert options. If alert options are present, it calls <a href="AjaxComponents.html#~alertWrapper">AjaxComponents~alertWrapper</a>, else it calls <a href="AjaxComponents.html#~ajaxWrapper">AjaxComponents~ajaxWrapper</a>.
+</div>
 
 
 
@@ -600,7 +697,8 @@
 
 
 
-
+    <h5>This:</h5>
+    <ul><li>Element</li></ul>
 
 
 
@@ -616,6 +714,8 @@
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -635,12 +735,24 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">Element</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
             
 
             
@@ -652,23 +764,143 @@
 
         <tr>
             
-                <td class="name"><code>event.data.opts</code></td>
+                <td class="name"><code>event.data.opts.ajax</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#AjaxOptions">AjaxOptions</a></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">The options for the component</td>
+            <td class="description last">The ajax options for the component. If <code>event.data.opts.ajax.data</code> is a function, it is called and its return value becomes the new data. Such a callback takes the triggering element as <code>this</code> and the event as the first argument.
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">Array</span>
+|
+
+<span class="param-type"><a href="global.html#DataCallback">DataCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">In addition to the normal settings for <a href="https://api.jquery.com/jquery.ajax/">jQuery.ajax</a>, can also be a function that returns the data (see <a href="global.html#DataCallback">DataCallback</a>). If this function returns <code>false</code>, no alert will be shown and no ajax call will be made.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>event.data.opts.alert</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#AlertOptions">AlertOptions</a></span>
+|
+
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The alert options for the component. Set to <code>true</code> to show the default alert.</td>
         </tr>
 
     
@@ -681,17 +913,29 @@
             <td class="type">
             
                 
-<span class="param-type">PseudoDeferred</span>
+<span class="param-type"><a href="AjaxComponents-PseudoDeferred.html">AjaxComponents~PseudoDeferred</a></span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">A deferred object (like a promise) to resolve or reject with the ajax call</td>
+            <td class="description last">A deferred object (like a promise) to resolve or reject with the ajax call.</td>
         </tr>
 
     
@@ -732,7 +976,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line282">line 282</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line317">line 317</a>
     </li></ul></dd>
     
 
@@ -759,7 +1003,7 @@
 
         
 <div class="param-desc">
-    The event return
+    The configured event return (see <a href="jQuery.ac.config.html">jQuery.ac.config.eventReturn</a>).
 </div>
 
 
@@ -785,13 +1029,15 @@
 
     
 
-    <h4 class="name" id=".extendWithData"><span class="type-signature">(private, static) </span>extendWithData<span class="signature">(data, element)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~extendWithData"><span class="type-signature">(private, inner) </span>extendWithData<span class="signature">(data<span class="signature-attributes">non-null</span>, element<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
 
     
-    <p class="summary">Adds data to the given object from the given element</p>
-    
 
 
+
+<div class="description">
+    Adds data to the given object from the given element's data attributes using <a href="AjaxComponents.html#~getMarkupData">AjaxComponents~getMarkupData</a>. Also calls <a href="AjaxComponents.html#~extendWithFormData">AjaxComponents~extendWithFormData</a> to add form data to the data. Ajax configuration is put into <code>data.ajax</code>, and alert configuration is put into <code>data.alert</code>. These keys will be added if they don't already exist.
+</div>
 
 
 
@@ -832,7 +1078,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#AjaxOptions">AjaxOptions</a></span>
+<span class="param-type">Object</span>
 
 
             
@@ -854,13 +1100,18 @@
 
             <td class="type">
             
+                
+<span class="param-type">Element</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last">A jQuery result set containing a single page element from which to pull data</td>
+            <td class="description last">The page element from which to pull data</td>
         </tr>
 
     
@@ -901,7 +1152,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line269">line 269</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line303">line 303</a>
     </li></ul></dd>
     
 
@@ -932,13 +1183,15 @@
 
     
 
-    <h4 class="name" id=".extendWithFormData"><span class="type-signature">(private, static) </span>extendWithFormData<span class="signature">(data, element)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~extendWithFormData"><span class="type-signature">(private, inner) </span>extendWithFormData<span class="signature">(data<span class="signature-attributes">non-null</span>, element<span class="signature-attributes">non-null</span>)</span><span class="type-signature"></span></h4>
 
     
-    <p class="summary">Adds form data from a page element to a given object</p>
-    
 
 
+
+<div class="description">
+    Adds form data from a page element (form tag) to a given object. If the element is not a form tag, the function exits without doing anything. The form tag's action attribute is mapped to <code>data.ajax.url</code> and its method attribute is mapped to <code>data.ajax.method</code>. The form is also serialized (see <a href="jQuery.ac.config.html">jQuery.ac.config.serializeObject</a>), and the serialized data is mapped to <code>data.ajax.data</code>.
+</div>
 
 
 
@@ -979,7 +1232,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#AjaxOptions">AjaxOptions</a></span>
+<span class="param-type">Object</span>
 
 
             
@@ -1001,13 +1254,18 @@
 
             <td class="type">
             
+                
+<span class="param-type">Element</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last">A jQuery result set containing a single page element from which to pull form data</td>
+            <td class="description last">The page element from which to pull form data</td>
         </tr>
 
     
@@ -1048,7 +1306,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line253">line 253</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line286">line 286</a>
     </li></ul></dd>
     
 
@@ -1079,13 +1337,15 @@
 
     
 
-    <h4 class="name" id=".getMarkupData"><span class="type-signature">(private, static) </span>getMarkupData<span class="signature">(element, regex)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="~getMarkupData"><span class="type-signature">(private, inner) </span>getMarkupData<span class="signature">(element, regex)</span><span class="type-signature"> &rarr; {Object}</span></h4>
 
     
-    <p class="summary">Build an object from matched data attributes from a given page element</p>
-    
 
 
+
+<div class="description">
+    Builds an object from matched data attributes from a given page element. Each sub-expression in the regular expression denotes another level of depths in the returned object.
+</div>
 
 
 
@@ -1125,13 +1385,18 @@
 
             <td class="type">
             
+                
+<span class="param-type">Element</span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last">A jQuery result set containing a single page element from which to get data attirubtes</td>
+            <td class="description last">The page element from which to get data attributes</td>
         </tr>
 
     
@@ -1154,7 +1419,7 @@
 
             
 
-            <td class="description last">A regular expression to use to filter data attributes</td>
+            <td class="description last">A regular expression to use to filter data attributes (see <a href="jQuery.ac.config.html">jQuery.ac.config.ajaxAttrRegex</a> and <a href="jQuery.ac.config.html">jQuery.ac.config.alertAttrRegex</a>). Must start with some matchable text (the "prefix") followed by one or more sub-expressions which denote a level of depth in the returned object. Case insensitivity recommended. The regular expression will be matching against the attribute name as returned by <a href="https://api.jquery.com/data/#data">jQuery#data</a>.</td>
         </tr>
 
     
@@ -1195,7 +1460,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line215">line 215</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line247">line 247</a>
     </li></ul></dd>
     
 
@@ -1248,7 +1513,7 @@
 
     
 
-    <h4 class="name" id=".initializeComponent"><span class="type-signature">(private, static) </span>initializeComponent<span class="signature">(event, selector<span class="signature-attributes">opt</span>, ajax<span class="signature-attributes">opt</span>, alert<span class="signature-attributes">opt</span>, deferred<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~initializeComponent"><span class="type-signature">(private, inner) </span>initializeComponent<span class="signature">(event<span class="signature-attributes">non-null</span>, selector<span class="signature-attributes">opt, nullable</span>, ajax<span class="signature-attributes">opt, nullable</span>, alert<span class="signature-attributes">opt, nullable</span>, deferred<span class="signature-attributes">opt, nullable</span>)</span><span class="type-signature"> &rarr; {Element}</span></h4>
 
     
     <p class="summary">Component initializer</p>
@@ -1256,11 +1521,18 @@
 
 
 
+<div class="description">
+    This function initializes an ajax component by binding <a href="AjaxComponents.html#~componentEventHandler">AjaxComponents~componentEventHandler</a> to the specified event on the element (specified by <code>this</code>). This function is not meant to initialize more than one component at a time. Doing so may not produce an error, but it is not correct usage.
+</div>
 
 
 
 
 
+
+
+    <h5>This:</h5>
+    <ul><li>Element</li></ul>
 
 
 
@@ -1341,6 +1613,8 @@
                 
 
                 
+                    &lt;nullable><br>
+                
 
                 
                 </td>
@@ -1374,6 +1648,8 @@
                 
 
                 
+                    &lt;nullable><br>
+                
 
                 
                 </td>
@@ -1381,7 +1657,77 @@
 
             
 
-            <td class="description last">Ajax settings to use.</td>
+            <td class="description last">Ajax settings to use.
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">Array</span>
+|
+
+<span class="param-type"><a href="global.html#DataCallback">DataCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">In addition to the normal settings for <a href="https://api.jquery.com/jquery.ajax/">jQuery.ajax</a>, can also be a function that returns the data (see <a href="global.html#DataCallback">DataCallback</a>). If this function returns <code>false</code>, no alert will be shown and no ajax call will be made.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
         </tr>
 
     
@@ -1395,6 +1741,9 @@
             
                 
 <span class="param-type"><a href="global.html#AlertOptions">AlertOptions</a></span>
+|
+
+<span class="param-type">boolean</span>
 
 
             
@@ -1407,6 +1756,8 @@
                 
 
                 
+                    &lt;nullable><br>
+                
 
                 
                 </td>
@@ -1414,7 +1765,7 @@
 
             
 
-            <td class="description last">Alert settings to use.</td>
+            <td class="description last">Alert settings to use. Set to <code>true</code> to show the default alert.</td>
         </tr>
 
     
@@ -1427,7 +1778,7 @@
             <td class="type">
             
                 
-<span class="param-type">PseudoDeferred</span>
+<span class="param-type"><a href="AjaxComponents-PseudoDeferred.html">AjaxComponents~PseudoDeferred</a></span>
 
 
             
@@ -1440,6 +1791,8 @@
                 
 
                 
+                    &lt;nullable><br>
+                
 
                 
                 </td>
@@ -1447,7 +1800,7 @@
 
             
 
-            <td class="description last">A deferred object (like a promise) to resolve or reject with the ajax call</td>
+            <td class="description last">A deferred object (like a promise) to resolve or reject with the ajax call.</td>
         </tr>
 
     
@@ -1488,7 +1841,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line313">line 313</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line370">line 370</a>
     </li></ul></dd>
     
 
@@ -1524,10 +1877,22 @@
 
         
 <div class="param-desc">
-    this
+    The element passed in as <code>this</code>.
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Element</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -1538,13 +1903,15 @@
 
     
 
-    <h4 class="name" id=".objectInsert"><span class="type-signature">(private, static) </span>objectInsert<span class="signature">(obj, key, value)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~objectInsert"><span class="type-signature">(private, inner) </span>objectInsert<span class="signature">(obj, key, value)</span><span class="type-signature"></span></h4>
 
     
-    <p class="summary">Inserts a value into an object, safely extending any sub-objects or arrays</p>
-    
 
 
+
+<div class="description">
+    Inserts a value into an object, safely extending any sub-objects or arrays. If an object is being inserted into a key that already contains an object, the original object is deep-extended by the new object. If an array is being inserted into a key that already contains an array, the new array is appended to the old one. Otherwise, the value is simply inserted into the key.
+</div>
 
 
 
@@ -1677,7 +2044,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line197">line 197</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line228">line 228</a>
     </li></ul></dd>
     
 
@@ -1708,13 +2075,15 @@
 
     
 
-    <h4 class="name" id=".objectParam"><span class="type-signature">(private, static) </span>objectParam<span class="signature">(obj, key, def)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~objectParam"><span class="type-signature">(private, inner) </span>objectParam<span class="signature">(obj, key, def<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
-    <p class="summary">Used to reference a key in an object, assigning a default value to the key if the it was not found in the object</p>
-    
 
 
+
+<div class="description">
+    Used to reference a key in an object, assigning a default value to the key if the it was not found in the object.
+</div>
 
 
 
@@ -1737,7 +2106,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -1762,7 +2135,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Object to which to add the key</td>
@@ -1785,7 +2170,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Key to add to the object</td>
@@ -1800,13 +2197,34 @@
 
             <td class="type">
             
+                
+<span class="param-type">*</span>
+
+
+            
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
             
 
-            <td class="description last">Default value to assign the the created key</td>
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+
+            <td class="description last">Default value to assign to the key if the key was not defined</td>
         </tr>
 
     
@@ -1847,7 +2265,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line178">line 178</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line208">line 208</a>
     </li></ul></dd>
     
 
@@ -1888,20 +2306,73 @@
 
     
 
-    <h4 class="name" id=".processResponse"><span class="type-signature">(private, static) </span>processResponse<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~processResponse"><span class="type-signature">(private, inner) </span>processResponse<span class="signature">(data)</span><span class="type-signature"></span></h4>
 
     
-    <p class="summary">Process server response</p>
+    <p class="summary">Processes directives in ajax response data</p>
     
 
 
 
+<div class="description">
+    If response handling is enabled (it is by default; see <a href="jQuery.ac.config.html">jQuery.ac.config.enableResponseHandlers</a>), looks for each expected directive key in the data. Then runs the handler for each found key. If the data at the directive key is an object or array, the handler is run as a callback for <a href="https://api.jquery.com/jQuery.each/">jQuery.each</a> over the data, else the handler is called directly with the data as the first (and second for compatibility) arguments.
+</div>
 
 
 
 
 
 
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The ajax response data</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -1937,7 +2408,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line104">line 104</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line126">line 126</a>
     </li></ul></dd>
     
 
@@ -1947,7 +2418,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li>$.ac.config.responseHandlers</li>
+            <li><a href="jQuery.ac.config.html">jQuery.ac.config.responseHandlers</a></li>
         </ul>
     </dd>
     
@@ -1986,13 +2457,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AjaxComponents.PseudoDeferred.html">PseudoDeferred</a></li></ul><h3>Namespaces</h3><ul><li><a href="AjaxComponents.html">AjaxComponents</a></li><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.ac.config.html">config</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-data-attributes.html">Data Attributes</a></li><li><a href="tutorial-delegated-events.html">Delegated Events</a></li><li><a href="tutorial-form-tags.html">Form Data</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-input-alerts.html">Input Alerts</a></li><li><a href="tutorial-server-response.html">Server Response</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AjaxComponents-PseudoDeferred.html">PseudoDeferred</a></li></ul><h3>Namespaces</h3><ul><li><a href="AjaxComponents.html">AjaxComponents</a></li><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.ac.config.html">config</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-data-attributes.html">Data Attributes</a></li><li><a href="tutorial-delegated-events.html">Delegated Events</a></li><li><a href="tutorial-form-tags.html">Form Data</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-input-alerts.html">Input Alerts</a></li><li><a href="tutorial-server-response.html">Server Response</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 21 2017 14:49:53 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jun 27 2017 14:15:03 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

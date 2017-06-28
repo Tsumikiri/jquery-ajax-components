@@ -1,8 +1,9 @@
 /**
  * @file Ajax Component jQuery Plugin
  * @author Alex Furey
- * @version 1.2.3
- * @requires jQuery
+ * @version 1.2.5
+ * @requires {@link https://api.jquery.com|jQuery}
+ * @see {@link http://api.jquery.com|jQuery Documentation}
  * @description A jQuery plugin that provides a shorthand interface for binding ajax functionality to page elements. Includes support for automatically inserting pre-generated HTML content into the DOM based on server response directives. The primary function for this plugin is {@link jQuery#ac}. Check out the {@tutorial getting-started} Guide.
  */
 
@@ -15,16 +16,19 @@
 
 /**
  * @typedef jqXHR
- * @see {@link http://api.jquery.com/jquery.ajax/#jqXHR|jQuery Documentation}
+ * @description This is a type used by jQuery as an XHR wrapper. It includes a promise interface.
+ * @see {@link http://api.jquery.com/jquery.ajax/#jqXHR|jqXHR}
  */
 
 /**
  * @typedef AjaxOptions
- * @see {@link http://api.jquery.com/jquery.ajax/|jQuery Documentation}
+ * @description An object containing settings for an ajax request. This is the same as the settings object for {@link https://api.jquery.com/jQuery.ajax/|jQuery.ajax}. Some functions in this plugin allow the <code>data</code> key to be a function that returns the actual data (or false to abort the operation). This is not always the case. If a function is allowed for <code>data</code>, the function's documentation will specifically say so.
+ * @see {@link http://api.jquery.com/jquery.ajax/|jQuery.ajax}
  */
 
 /**
  * @typedef AlertOptions
+ * @description An object containing settings for an ajax request. This is the same as the settings object for {@link http://t4t5.github.io/sweetalert/|swal}. You do not need to use Sweet Alert to use this plugin, but it is highly recommended. If Sweet Alert is not available, this plugin will default to using system alerts instead. In this case, the alert options still use the Sweet Alert format, although it only supports the <code>type</code>, <code>title</code>, <code>text</code>, and <code>inputValue</code> settings.
  * @see {@link http://t4t5.github.io/sweetalert/|Sweet Alert Documentation}
  */
 
@@ -37,20 +41,23 @@
 
 /**
  * @callback SerializeObjectFunction
+ * @description <p>Duplicate keys can be serialized is different ways with this method. The implementation that ships with this plugin uses an older style of serialization where duplicate values are appended as a comma-delimited list. This is easier for some servers to parse but harder for others. Choose whichever duplicate-key serialization method that works for you.</p>
+ * <p>Other implementations might turn duplicates into an array, which modern browsers translate into bracket notation when sending the data to a server. See {@link https://github.com/hongymagic/jQuery.serializeObject} for this modern implementation.</p>
+ * <p>The plugin should be able to handle either of the duplicate-key serialization methods described here.</p>
  * @this jQuery
  * @returns {Object.<string,(string|number)>} The serialized data object.
  */
 
 /**
  * @callback AjaxDoneCallback
- * @see {@link http://api.jquery.com/deferred.done/|jQuery Done Callback}
+ * @see {@link http://api.jquery.com/deferred.done/|deferred.done}
  * @this jqXHR
  * @param {Object} data - The response data.
  */
 
 /**
  * @callback AjaxErrorCallback
- * @see {@link http://api.jquery.com/deferred.fail/|jQuery Fail Callback}
+ * @see {@link http://api.jquery.com/deferred.fail/|deferred.fail}
  * @this jqXHR
  * @param {Object} jqXHR - The {@link http://api.jquery.com/jQuery.ajax/#jqXHR|jQuery XHR object} for the ajax request.
  * @param {string} statusText - Text representing the status of the request.
@@ -59,13 +66,13 @@
 
 /**
  * @callback AjaxAlwaysCallback
- * @see {@link http://api.jquery.com/deferred.always/|jQuery Always Callback}
+ * @see {@link http://api.jquery.com/deferred.always/|deferred.always}
  * @this jqXHR
  */
 
 /**
  * @callback ObjectCallback
- * @see {@link http://api.jquery.com/jquery.each/|jQuery Each}
+ * @see {@link http://api.jquery.com/jquery.each/|jQuery.each}
  * @summary A callback function used to loop over an object in an ajax response.
  * @param {string} key - The current key from the object to process.
  * @param value - The value assigned to the current key.
@@ -73,39 +80,57 @@
 
 /**
  * @callback ArrayCallback
- * @see {@link http://api.jquery.com/jquery.each/|jQuery Each}
+ * @see {@link http://api.jquery.com/jquery.each/|jQuery.each}
  * @summary A callback function used to loop over an array in an ajax response.
  * @param {number} index - The current index from the array to process.
  * @param value - The value assigned to the current index.
  */
 
 /**
+ * @callback DataCallback
+ * @description A callback to use instead of ajax data options (see {@link https://api.jquery.com/jQuery.ajax/}|jQuery.ajax). Returns the data to use. Takes the triggering Element as <code>this</code>.
+ * @param {Event} event
+ * @returns {Object} The data object (see {@link AjaxOptions})
+ */
+
+/**
  * @private
  * @name AjaxComponents
  * @namespace AjaxComponents
- * @description An anonymous scope that encloses all Ajax Component functionality. Members of this namespace are not accessible outside of the plugin script.
+ * @description This anonymous scope encloses all Ajax Component functionality. Members of this namespace are not accessible outside of the plugin script. This reduces namespace pollution and helps to abstract away the underlying implementation of the plugin.
  */
 (function($) {
 	
 	/**
 	 * @private
-	 * @name AjaxComponents.ajaxKey
+	 * @const
+	 * @readonly
+	 * @default <code>'ajax'</code>
+	 * @name AjaxComponents~ajaxKey
 	 * @summary The key to use for ajax settings
+	 * @description Note that changing this value would make other parts of the documentation incorrect.
 	 */
 	var ajaxKey = 'ajax';
 	
 	/**
 	 * @private
-	 * @name AjaxComponents.alertKey
-	 * @summary THe key to use for alert settings
+	 * @const
+	 * @readonly
+	 * @default <code>'alert'</code>
+	 * @name AjaxComponents~alertKey
+	 * @summary The key to use for alert settings
+	 * @description Note that changing this value would make other parts of the documentation incorrect.
 	 */
 	var alertKey = 'alert';
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.processResponse
-	 * @summary Process server response
-	 * @see $.ac.config.responseHandlers
+	 * @function AjaxComponents~processResponse
+	 * @summary Processes directives in ajax response data
+	 * @description If response handling is enabled (it is by default; see {@link jQuery.ac.config|jQuery.ac.config.enableResponseHandlers}), looks for each expected directive key in the data. Then runs the handler for each found key. If the data at the directive key is an object or array, the handler is run as a callback for {@link https://api.jquery.com/jQuery.each/|jQuery.each} over the data, else the handler is called directly with the data as the first (and second for compatibility) arguments.
+	 * @see {@link jQuery.ac.config|jQuery.ac.config.responseHandlers}
+	 * 
+	 * @param {Object} data - The ajax response data
 	 */
 	function processResponse(data) {
 		if ($.ac.config.enableResponseHandlers) {
@@ -123,11 +148,13 @@
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.ajaxWrapper
-	 * @summary Wrapper for <code>$.ajax</code> with response processing and ajax event handlers included
-	 * @param {Object} opts - jQuery Ajax settings object (plugin defaults will be added automatically)
-	 * @param {PseudoDeferred} deferred - A deferred object (like a promise) to resolve or reject with the ajax call; queued after the response is processed and after global handlers
-	 * @returns {Object} A jqXHR object
+	 * @function AjaxComponents~ajaxWrapper
+	 * @summary The plugin's ajax wrapper
+	 * @description Wrapper for {@link https://api.jquery.com/jQuery.ajax/|jQuery.ajax} with response processing and ajax event handlers included. The function takes the default configuration options (see {@link jQuery.ac.config|jQuery.ac.config.ajaxDefaults}) and deep-extends them with the given options. Calls {@link AjaxComponents~processResponse} on success. Calls {@link jQuery.ac.config|jQuery.ac.config.doneHandler}, {@link jQuery.ac.config|jQuery.ac.config.errorHandler}, and {@link jQuery.ac.config|jQuery.ac.config.alwaysHandler} as appropriate when the ajax response is received. This function is also exposed as {@link jQuery.ac}. If <code>deferred</code> is passed, this function will call {@link AjaxComponents~PseudoDeferred#resolve} or {@link AjaxComponents~PseudoDeferred#reject} as appropriate when the ajax response is received.
+	 *
+	 * @param {?AjaxOptions} opts - Ajax settings to use
+	 * @param {?AjaxComponents~PseudoDeferred} deferred - A deferred object (like a promise) to resolve or reject with the ajax call; queued after the response is processed and after global handlers
+	 * @returns {jqXHR} A jqXHR object as returned by {@link https://api.jquery.com/jQuery.ajax/|jQuery.ajax}
 	 */
 	function ajaxWrapper(opts, deferred) {
 		var jqxhr = $.ajax($.extend(true, {}, $.ac.config.ajaxDefaults, opts)).done(processResponse).done($.ac.config.doneHandler).fail($.ac.config.errorHandler).always($.ac.config.alwaysHandler);
@@ -143,11 +170,14 @@
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.alertWrapper
-	 * @summary Wrapper for <code>swal</code> that can default to built-in alerts if <code>swal</code> is not available
-	 * @param {Object} alertOpts - Sweet Alert settings object
-	 * @param {Object} ajaxOpts - jQuery Ajax settings object
-	 * @param {PseudoDeferred} deferred - A deferred object (like a promise) to pass to the ajax wrapper
+	 * @function AjaxComponents~alertWrapper
+	 * @description Wrapper for <code>swal</code> that can default to built-in alerts if <code>swal</code> is not available. The function takes the default configuration options (see {@link jQuery.ac.config|jQuery.ac.config.alertDefaults}) and deep-extends them with the given options. If swal is not available, the function will use the built in alert, prompt, or confirm functions. Note that these functions halt JavaScript processing while waiting for user input, whereas SweetAlert does not. Also, if using system alerts the <code>type</code>, <code>title</code>, <code>text</code>, and <code>inputValue</code> settings are avaiable for <code>alertOpts</code>. This function calls {@link AjaxComponents~ajaxWrapper} when the user confirms the alert. If the user cancels the alert, nothing happens.
+	 * @see {@link AjaxComponents~ajaxWrapper}
+	 * @see {@link jQuery.ac.config|jQuery.ac.config.swal}
+	 *
+	 * @param {?AlertOptions} [alertOpts] - Sweet Alert settings object. Will extend the default settings (see {@link jQuery.ac.config|jQuery.ac.config.alertDefaults}).
+	 * @param {?AjaxOptions} [ajaxOpts] - jQuery Ajax settings object.
+	 * @param {?AjaxComponents~PseudoDeferred} [deferred] - A deferred object (like a promise) to pass to the ajax wrapper
 	 */
 	function alertWrapper(alertOpts, ajaxOpts, deferred) {
 		var handler = function(input) {
@@ -177,11 +207,12 @@
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.objectParam
-	 * @summary Used to reference a key in an object, assigning a default value to the key if the it was not found in the object
+	 * @function AjaxComponents~objectParam
+	 * @description Used to reference a key in an object, assigning a default value to the key if the it was not found in the object.
+	 *
 	 * @param {Object} obj - Object to which to add the key
 	 * @param {string} key - Key to add to the object
-	 * @param def - Default value to assign the the created key
+	 * @param {*} [def={}] - Default value to assign to the key if the key was not defined
 	 * @returns The value assigned to the given key in the given object
 	 */
 	function objectParam(obj, key, def) {
@@ -196,8 +227,9 @@
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.objectInsert
-	 * @summary Inserts a value into an object, safely extending any sub-objects or arrays
+	 * @function AjaxComponents~objectInsert
+	 * @description Inserts a value into an object, safely extending any sub-objects or arrays. If an object is being inserted into a key that already contains an object, the original object is deep-extended by the new object. If an array is being inserted into a key that already contains an array, the new array is appended to the old one. Otherwise, the value is simply inserted into the key.
+	 *
 	 * @param {Object} obj - The object into which to insert the value
 	 * @param {string} key - The key to use to insert the value into the object
 	 * @param value - The value to insert into the object
@@ -214,10 +246,11 @@
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.getMarkupData
-	 * @summary Build an object from matched data attributes from a given page element
-	 * @param element - A jQuery result set containing a single page element from which to get data attirubtes
-	 * @param {RegExp} regex - A regular expression to use to filter data attributes
+	 * @function AjaxComponents~getMarkupData
+	 * @description Builds an object from matched data attributes from a given page element. Each sub-expression in the regular expression denotes another level of depths in the returned object.
+	 *
+	 * @param {Element} element - The page element from which to get data attributes
+	 * @param {RegExp} regex - A regular expression to use to filter data attributes (see {@link jQuery.ac.config|jQuery.ac.config.ajaxAttrRegex} and {@link jQuery.ac.config|jQuery.ac.config.alertAttrRegex}). Must start with some matchable text (the "prefix") followed by one or more sub-expressions which denote a level of depth in the returned object. Case insensitivity recommended. The regular expression will be matching against the attribute name as returned by {@link https://api.jquery.com/data/#data|jQuery#data}.
 	 * @returns {Object} Constructed data object
 	 */
 	function getMarkupData(element, regex) {
@@ -252,10 +285,11 @@
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.extendWithFormData
-	 * @summary Adds form data from a page element to a given object
-	 * @param {AjaxOptions} data - The data object to which the form data will be added
-	 * @param element - A jQuery result set containing a single page element from which to pull form data
+	 * @function AjaxComponents~extendWithFormData
+	 * @description Adds form data from a page element (form tag) to a given object. If the element is not a form tag, the function exits without doing anything. The form tag's action attribute is mapped to <code>data.ajax.url</code> and its method attribute is mapped to <code>data.ajax.method</code>. The form is also serialized (see {@link jQuery.ac.config|jQuery.ac.config.serializeObject}), and the serialized data is mapped to <code>data.ajax.data</code>.
+	 *
+	 * @param {!Object} data - The data object to which the form data will be added
+	 * @param {!Element} element - The page element from which to pull form data
 	 */
 	function extendWithFormData(data, element) {
 		if ($(element).prop('tagName') === 'FORM') {
@@ -268,10 +302,11 @@
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.extendWithData
-	 * @summary Adds data to the given object from the given element
-	 * @param {AjaxOptions} data - The data object to which the form data will be added
-	 * @param element - A jQuery result set containing a single page element from which to pull data
+	 * @function AjaxComponents~extendWithData
+	 * @description Adds data to the given object from the given element's data attributes using {@link AjaxComponents~getMarkupData}. Also calls {@link AjaxComponents~extendWithFormData} to add form data to the data. Ajax configuration is put into <code>data.ajax</code>, and alert configuration is put into <code>data.alert</code>. These keys will be added if they don't already exist.
+	 *
+	 * @param {!Object} data - The data object to which the form data will be added
+	 * @param {!Element} element - The page element from which to pull data
 	 */
 	function extendWithData(data, element) {
 		$.extend(true, objectParam(data, alertKey), getMarkupData(element, $.ac.config.alertAttrRegex));
@@ -281,23 +316,45 @@
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.componentEventHandler
-	 * @summary Event handler to bind to initialized components
-	 * @param {Object} event.delegateTarget - The delegate element for the event
-	 * @param {Object} event.data.opts - The options for the component
-	 * @param {PseudoDeferred} event.data.deferred - A deferred object (like a promise) to resolve or reject with the ajax call
-	 * @returns {boolean} The event return
+	 * @function AjaxComponents~componentEventHandler
+	 * @description Event handler to bind to initialized components. When fired, this function first builds its configuration data, starting with the data attached to the event and deep-merging it with the data attached to the element via data attributes (see {@link AjaxComponents~extendWithData}). After building the configuration data, the function checks for the presence of alert options. If alert options are present, it calls {@link AjaxComponents~alertWrapper}, else it calls {@link AjaxComponents~ajaxWrapper}.
+	 *
+	 * @this Element
+	 * @param {?Element} [event.delegateTarget] - The delegate element for the event
+	 * @param {?AjaxOptions} [event.data.opts.ajax] - The ajax options for the component. If <code>event.data.opts.ajax.data</code> is a function, it is called and its return value becomes the new data. Such a callback takes the triggering element as <code>this</code> and the event as the first argument.
+	 * @param {string|Object|Array|DataCallback} [event.data.opts.ajax.data] - In addition to the normal settings for {@link https://api.jquery.com/jquery.ajax/|jQuery.ajax}, can also be a function that returns the data (see {@link DataCallback}). If this function returns <code>false</code>, no alert will be shown and no ajax call will be made.
+	 * @param {?(AlertOptions|boolean)} [event.data.opts.alert] - The alert options for the component. Set to <code>true</code> to show the default alert.
+	 * @param {?AjaxComponents~PseudoDeferred} [event.data.deferred] - A deferred object (like a promise) to resolve or reject with the ajax call.
+	 * @returns {boolean} The configured event return (see {@link jQuery.ac.config|jQuery.ac.config.eventReturn}).
 	 */
 	function componentEventHandler(event) {
 		//IMPORTANT: deep copy the event data before meddling with it
 		var data = $.extend(true, {}, event.data.opts);
 		var element = this;
+		if ('data' in data.ajax && typeof data.ajax.data === 'function') {
+			data.ajax.data = data.ajax.data.call(this, event);
+			if (data.ajax.data === false) {
+				if ($.ac.config.stopPropagation) {
+					event.stopPropagation();
+				}
+				if ($.ac.config.preventDefault) {
+					event.preventDefault();
+				}
+				return $.ac.config.eventReturn;
+			}
+		}
 		if (element !== event.delegateTarget) {
 			extendWithData(data, event.delegateTarget);
 		}
 		extendWithData(data, element);
-		if (alertKey in data && data[alertKey] && !$.isEmptyObject(data[alertKey])) {
-			alertWrapper(data[alertKey], data[ajaxKey], event.data.deferred);
+		if (alertKey in data && data[alertKey]) {
+			if (data[alertKey] === true) {
+				alertWrapper({}, data[ajaxKey], event.data.deferred);
+			} else if ($.isPlainObject(data[alertKey]) && !$.isEmptyObject(data[alertKey])) {
+				alertWrapper(data[alertKey], data[ajaxKey], event.data.deferred);
+			} else {
+				ajaxWrapper(data[ajaxKey], event.data.deferred);
+			}
 		} else {
 			ajaxWrapper(data[ajaxKey], event.data.deferred);
 		}
@@ -312,22 +369,25 @@
 	
 	/**
 	 * @private
-	 * @function AjaxComponents.initializeComponent
+	 * @function AjaxComponents~initializeComponent
 	 * @summary Component initializer
-	 * @param {string} event - The name of an event (or multiple events separated by spaces) to which to bind the event handler. Use the <code>"ac.init"</code> event to trigger as soon as the component is initialized.
-	 * @param {string} [selector] - Selector used as a filter for delegated events.
-	 * @param {AjaxOptions} [ajax] - Ajax settings to use.
+	 * @description This function initializes an ajax component by binding {@link AjaxComponents~componentEventHandler} to the specified event on the element (specified by <code>this</code>). This function is not meant to initialize more than one component at a time. Doing so may not produce an error, but it is not correct usage.
 	 * @see http://api.jquery.com/jquery.ajax/
-	 * @param {AlertOptions} [alert] - Alert settings to use.
 	 * @see http://t4t5.github.io/sweetalert/
-	 * @param {PseudoDeferred} [deferred] - A deferred object (like a promise) to resolve or reject with the ajax call
-	 * @return this
+	 *
+	 * @this Element
+	 * @param {!string} event - The name of an event (or multiple events separated by spaces) to which to bind the event handler. Use the <code>"ac.init"</code> event to trigger as soon as the component is initialized.
+	 * @param {?string} [selector] - Selector used as a filter for delegated events.
+	 * @param {?AjaxOptions} [ajax] - Ajax settings to use.
+	 * @param {string|Object|Array|DataCallback} [ajax.data] - In addition to the normal settings for {@link https://api.jquery.com/jquery.ajax/|jQuery.ajax}, can also be a function that returns the data (see {@link DataCallback}). If this function returns <code>false</code>, no alert will be shown and no ajax call will be made.
+	 * @param {?(AlertOptions|boolean)} [alert] - Alert settings to use. Set to <code>true</code> to show the default alert.
+	 * @param {?AjaxComponents~PseudoDeferred} [deferred] - A deferred object (like a promise) to resolve or reject with the ajax call.
+	 * @return {Element} The element passed in as <code>this</code>.
 	 */
 	function initializeComponent(event, selector, ajax, alert, deferred) {
-		console.log(arguments);
 		var opts = {};
-		opts[ajaxKey] = ajax;
-		opts[alertKey] = alert;
+		opts[ajaxKey] = ajax || {};
+		opts[alertKey] = alert || {};
 		$(this).on(event + $.ac.config.eventSuffix, selector, {
 			opts: opts,
 			deferred: deferred
@@ -338,13 +398,8 @@
 	/**
 	 * @public
 	 * @function jQuery#ac
-	 * @summary The plugin function.
+	 * @summary Main plugin function
 	 * @description This is the main function for this plugin. It binds a special event handler to the given page element(s). This handler makes an ajax request which must return a JSON response. That response can leverage several special keys (<code>"html"</code> is the most common) to manipulate the page. Be sure to check out the {@tutorial getting-started} tutorial!
-	 * @param {!string} [eventName] - The name of an event to use for the binding, such as <code>'click'</code> or <code>'submit'</code>. Also supports multiple events separated by spaces. Use the <code>'ac.init'</code> event to run the ajax call when the component finishes initializing.
-	 * @param {?string} [filterSelector=null] - A filter selector for delegated binding. Can be left out, in which case <code>ajaxOptions</code> is expected as this argument.
-	 * @param {?AjaxOptions} [ajaxConfiguration] - The options to use for ajax requests made by this component
-	 * @param {?AlertOptions} [alertConfiguration] - The options to use for alerts created by this component
-	 * @returns {AjaxComponents.PseudoDeferred|jQuery} Normally, returns a PseudoDeferred object (like a promise but way dumber) that will be resolved or rejected with any ajax call made by the component(s). Can also be configured to return the jQuery-wrapped DOM elements passed to the function (see {@link jQuery.ac.config}).
 	 *
 	 * @example <caption>Initializing an ajax link. Alternatively, you can leave out the second argument and instead use a data attribute on the anchor tag (e.g. <code>data-ac-ajax-url="/path/to/remote/function/"</code>).</caption>
 	 * $('#my-link').ac('click', {
@@ -370,12 +425,20 @@
 	 * $('#my-link').ac('ac.init click', {
 	 *    //ajax options...
 	 * });
+	 *
+	 * @param {!string} eventName - The name of an event to use for the binding, such as <code>'click'</code> or <code>'submit'</code>. Also supports multiple events separated by spaces. Use the <code>'ac.init'</code> event to run the ajax call when the component finishes initializing.
+	 * @param {?string} [filterSelector=null] - A filter selector for delegated binding. Can be left out, in which case <code>ajaxOptions</code> is expected as this argument.
+	 * @param {?AjaxOptions} [ajaxConfiguration] - The options to use for ajax requests made by this component
+	 * @param {string|Object|Array|DataCallback} [ajaxConfiguration.data] - In addition to the normal settings for {@link https://api.jquery.com/jquery.ajax/|jQuery.ajax}, can also be a function that returns the data (see {@link DataCallback}).
+	 * @param {?(AlertOptions|boolean)} [alertConfiguration] - The options to use for alerts created by this component. Set to <code>true</code> to show the default alert.
+	 * @returns {AjaxComponents~PseudoDeferred|jQuery} Normally, returns a PseudoDeferred object (like a promise but way dumber) that will be resolved or rejected with any ajax call made by the component(s). Can also be configured to return the jQuery-wrapped DOM elements passed to the function (see {@link jQuery.ac.config}).
+	 *
 	 */
 	$.fn.ac = function() {
 		var params = [];
 		var j = 0;
 		for (var i = 0; j < 4; i++) {
-			if (i === 1 && $.isPlainObject(arguments[i])) {
+			if (i === 1 && ($.isPlainObject(arguments[i]) || arguments[i] === null)) {
 				params.push(null); //push null onto the parameters array if the selector argument was left out
 				j++;
 			}
@@ -393,10 +456,8 @@
 	/**
 	 * @public
 	 * @function jQuery.ac
-	 * @summary The plugin's ajax wrapper.
+	 * @summary Exposes the plugin's ajax wrapper
 	 * @description This is a wrapper for <code>$.ajax</code> that includes the response handler functionality of the Ajax Components plugin. Access to this function is provided so that the plugin's response handler functionality can be used outside of an actual component element.
-	 * @param {AjaxOptions} ajaxOptions - The options to use for the ajax request
-	 * @returns {jqXHR} The jqXHR object generated by <code>$.ajax</code>; like a promise
 	 *
 	 * @example <caption>Calling the static <code>ac</code> function as you would call {@link http://api.jquery.com/jquery.ajax/|$.ajax}.</caption>
 	 * $.ac({
@@ -406,32 +467,21 @@
 	 *         foo: 'bar'
 	 *     }
 	 * });
+	 *
+	 * @param {AjaxOptions} ajaxOptions - The options to use for the ajax request
+	 * @returns {jqXHR} The jqXHR object generated by <code>$.ajax</code>; like a promise
 	 */
-	$.ac = function(ajaxOptions) {
-		return ajaxWrapper(ajaxOptions);
-	};
+	$.ac = ajaxWrapper;
 
 	/**
 	 * @public
 	 * @name jQuery.ac.config
 	 * @namespace jQuery.ac.config
-	 * @summary The plugin configuration object.
+	 * @summary Plugin configuration object
 	 * @description These configuration options can be used to change how the plugin behaves.
 	 *
-	 * @example <caption>In this code snippet, we set the value of a config property.</caption>
-	 * $.ac.config.alertAllowEmpty = false;
-	 *
-	 * @example <caption>Adding a new response processor. This processor will take an array of selectors and run jQuery's <code>.slideUp()</code> on each one.</caption>
-	 * $.ac.config.responseHandlers.slideUp = function(index, selector) {
-	 *     $(selector).slideUp();
-	 * };
-	 * //Example of expected server response: { "slideUp": [ "#div-to-slide-up", "#other-div-to-slide-up" ] }
-	 *
-	 * @example <caption>Using a different <code>serializeObject</code> implementation.</caption>
-	 * $.ac.config.serializeObject = $.fn.serializeObject;
-	 *
-	 * @property {?AjaxDoneCallback} doneHandler=null - Callback to use for successful ajax calls.
-	 * @property {?AjaxErrorCallback} errorHandler=null - Callback to use for failed ajax calls.
+	 * @property {?AjaxDoneCallback} doneHandler=null - Callback to use for all successful ajax calls.
+	 * @property {?AjaxErrorCallback} errorHandler=null - Callback to use for all failed ajax calls.
 	 * @property {?AjaxAlwaysCallback} alwaysHandler=null - Callback to use for all ajax calls.
 	 * @property {Object.<string,(ObjectCallback|ArrayCallback)>} responseHandlers - An object that handles keys returned by the server.
 	 * @property {boolean} enableResponseHandlers=true - Allows the plugin to use the response callbacks on ajax calls.
@@ -453,6 +503,18 @@
 	 * @property {string} [alertDefaults.showCancelButton=true]
 	 * @property {?SweetAlertFunction} swal - Points to the <code>swal()</code> function from the Sweet Alert plugin. If Sweet Alert is not available, the plugin will make due with built-in alert functions (way less awesome).
 	 * @property {SerializeObjectFunction} serializeObject - Points to a jQuery <code>serializeObject</code> function. Included since 1.0.2 (no longer requires the external serializeObject plugin). Override with your own implementation if the included one is not satisfactory. Takes a form tag as <code>this</code> and no other arguments.
+	 *
+	 * @example <caption>In this code snippet, we set the value of a config property.</caption>
+	 * $.ac.config.alertAllowEmpty = false;
+	 *
+	 * @example <caption>Adding a new response processor. This processor will take an array of selectors and run jQuery's <code>.slideUp()</code> on each one.</caption>
+	 * $.ac.config.responseHandlers.slideUp = function(index, selector) {
+	 *     $(selector).slideUp();
+	 * };
+	 * //Example of expected server response: { "slideUp": [ "#div-to-slide-up", "#other-div-to-slide-up" ] }
+	 *
+	 * @example <caption>Using a different <code>serializeObject</code> implementation.</caption>
+	 * $.ac.config.serializeObject = $.fn.serializeObject;
 	 */
 	$.ac.config = {
 		doneHandler: null,
@@ -472,16 +534,19 @@
 				$(selector).show();
 			},
 			hideModal: function(index, selector) {
-				$(selector).modal('hide');
+				$(selector).modal('hide'); //for twitter bootstrap http://getbootstrap.com/
 			},
 			showModal: function(index, selector) {
-				$(selector).modal('show');
+				$(selector).modal('show'); //for twitter bootstrap http://getbootstrap.com/
 			},
 			append: function(selector, content) {
 				$(selector).append(content);
 			},
 			prepend: function(selector, content) {
 				$(selector).prepend(content);
+			},
+			val: function(selector, value) {
+				$(selector).val(value).trigger('chosen:updated'); //for the chosen jQuery plugin https://harvesthq.github.io/chosen/
 			}
 		},
 		enableResponseHandlers: true,
@@ -522,7 +587,7 @@
 	/**
 	 * @public
 	 * @class
-	 * @name AjaxComponents.PseudoDeferred
+	 * @name AjaxComponents~PseudoDeferred
 	 * @classdesc A dumbed-down Promise implementation. The main difference with a true promise is that PseudoDeferred objects can resolve and reject more than once. Also, callbacks added after a resolve or reject are not called until the next resolution or rejection.
 	 */
 	var PseudoDeferred = function() {
@@ -533,47 +598,64 @@
 
 	/**
 	 * @private
-	 * @method AjaxComponents.PseudoDeferred#resolve
-	 * @description Resolves the deferred object. Calls all done and always callbacks in the order that they were added.
-	 * @param {*} callbackThis - The object to use as <code>this</code> for the executed callbacks.
-	 * @param {...*} callbackArg - Arguments to pass to the done callbacks
+	 * @method AjaxComponents~PseudoDeferred#settle
+	 * @description Resolves or rejects the deferred object.
+	 * @see {@link AjaxComponents~PseudoDeferred#resolve}, {@link AjaxComponents~PseudoDeferred#reject}
+	 *
+	 * @param {boolean} resolve - If true, the instance is resolved; else, the instance is rejected
+	 * @returns {number} The number of callbacks executed
 	 */
-	PseudoDeferred.prototype.resolve = function() {
-		var afterFirst = Array.prototype.splice.call(arguments, 1);
-		for (var i = 0; i < this._doneCallbacks.length; i++) {
-			this._doneCallbacks[i].apply(arguments[0], afterFirst);
+	PseudoDeferred.prototype._settle = function(resolve, args) {
+		var callbacks = resolve ? this._doneCallbacks : this._failCallbacks;
+		var argsAfterFirst = Array.prototype.splice.call(args, 1);
+		for (var i = 0; i < callbacks.length; i++) {
+			callbacks[i].apply(args[0], argsAfterFirst);
 		}
 		for (var j = 0; j < this._alwaysCallbacks.length; j++) {
-			this._alwaysCallbacks[j].apply(arguments[0]);
+			this._alwaysCallbacks[j].apply(args[0], argsAfterFirst);
 		}
+		return callbacks.length + this._alwaysCallbacks.length;
 	};
 
 	/**
 	 * @private
-	 * @method AjaxComponents.PseudoDeferred#reject
+	 * @method AjaxComponents~PseudoDeferred#resolve
+	 * @description Resolves the deferred object. Calls all done and always callbacks in the order that they were added.
+	 *
+	 * @param {*} callbackThis - The object to use as <code>this</code> for the executed callbacks.
+	 * @param {...*} callbackArg - Arguments to pass to the done callbacks
+	 * @returns {AjaxComponents~PseudoDeferred}
+	 */
+	PseudoDeferred.prototype.resolve = function() {
+		this._settle(true, arguments);
+		return this;
+	};
+
+	/**
+	 * @private
+	 * @method AjaxComponents~PseudoDeferred#reject
 	 * @description Rejects the deferred object. Calls all fail and always callbacks in the order that they were added.
+	 *
 	 * @param {*} callbackThis - The object to use as <code>this</code> for the executed callbacks.
 	 * @param {...*} callbackArg - Arguments to pass to the fail callbacks
+	 * @returns {AjaxComponents~PseudoDeferred}
 	 */
 	PseudoDeferred.prototype.reject = function() {
-		var afterFirst = Array.prototype.splice.call(arguments, 1);
-		for (var i = 0; i < this._failCallbacks.length; i++) {
-			this._failCallbacks[i].apply(arguments[0], afterFirst);
-		}
-		for (var j = 0; j < this._alwaysCallbacks.length; j++) {
-			this._alwaysCallbacks[j].apply(arguments[0]);
-		}
+		this._settle(false, arguments);
+		return this;
 	};
 
 	/**
 	 * @public
-	 * @method AjaxComponents.PseudoDeferred#done
+	 * @method AjaxComponents~PseudoDeferred#done
 	 * @description Adds a done callback to the instance. Multiple callbacks can be added in this way (one at a time). Every done callback will be executed when the instance is resolved.
-	 * @param {AjaxDoneCallback} callback
-	 * @example <caption>In this example, we chain to the PseudoDeferred instance returned by {@link jQuery#ac}.</caption>
+	 *
+	 * @example <caption>In this example, we chain to the {@link AjaxComponents~PseudoDeferred} instance returned by {@link jQuery#ac}.</caption>
 	 * $('#my-form').ac('submit').done(function(data) {
 	 *     console.log('Done!');
 	 * });
+	 *
+	 * @param {AjaxDoneCallback} callback
 	 */
 	PseudoDeferred.prototype.done = function(callback) {
 		this._doneCallbacks.push(callback);
@@ -582,13 +664,15 @@
 
 	/**
 	 * @public
-	 * @method AjaxComponents.PseudoDeferred#fail
+	 * @method AjaxComponents~PseudoDeferred#fail
 	 * @description Adds a fail callback to the instance. Multiple callbacks can be added in this way (one at a time). Every done callback will be executed when the instance is rejected.
-	 * @param {AjaxErrorCallback} callback
-	 * @example <caption>In this example, we chain to the PseudoDeferred instance returned by {@link jQuery#ac}.</caption>
+	 *
+	 * @example <caption>In this example, we chain to the {@link AjaxComponents~PseudoDeferred} instance returned by {@link jQuery#ac}.</caption>
 	 * $('#my-form').ac('submit').fail(function(xhr, status, error) {
 	 *     console.log('Error!');
 	 * });
+	 *
+	 * @param {AjaxErrorCallback} callback
 	 */
 	PseudoDeferred.prototype.fail = function(callback) {
 		this._failCallbacks.push(callback);
@@ -597,13 +681,15 @@
 
 	/**
 	 * @public
-	 * @method AjaxComponents.PseudoDeferred#always
+	 * @method AjaxComponents~PseudoDeferred#always
 	 * @description Adds an always callback to the instance. Multiple callbacks can be added in this way (one at a time). Every always callback will be executed when the instance is resolved or rejected.
-	 * @param {AjaxAlwaysCallback} callback
-	 * @example <caption>In this example, we chain to the PseudoDeferred instance returned by {@link jQuery#ac}.</caption>
+	 *
+	 * @example <caption>In this example, we chain to the {@link AjaxComponents~PseudoDeferred} instance returned by {@link jQuery#ac}.</caption>
 	 * $('#my-form').ac('submit').always(function() {
 	 *     console.log('Always!');
 	 * });
+	 *
+	 * @param {AjaxAlwaysCallback} callback
 	 */
 	PseudoDeferred.prototype.always = function(callback) {
 		this._alwaysCallbacks.push(callback);
@@ -612,9 +698,18 @@
 
 	/**
 	 * @public
-	 * @method AjaxComponents.PseudoDeferred#then
-	 * @see {@link AjaxComponents.PseudoDeferred#always}
+	 * @method AjaxComponents~PseudoDeferred#then
+	 * @description This method is an alias of {@link AjaxComponents~PseudoDeferred#always}.
+	 * @see {@link AjaxComponents~PseudoDeferred#always}
 	 */
 	PseudoDeferred.prototype.then = PseudoDeferred.prototype.always;
+
+	/**
+	 * @public
+	 * @method AjaxComponents~PseudoDeferred#catch
+	 * @description This method is an alias of {@link AjaxComponents~PseudoDeferred#fail}.
+	 * @see {@link AjaxComponents~PseudoDeferred#fail}
+	 */
+	PseudoDeferred.prototype.catch = PseudoDeferred.prototype.fail;
 	
 })(jQuery);

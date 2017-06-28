@@ -25,3 +25,10 @@
     + Updated several tutorials
 ## 1.2.3
 - Fixed a major bug that caused the initializer to fail
+## 1.2.4
+- Fixed a bug caused by passing null for ajaxOptions in jQuery#ac (documented as being nullable but was not working)
+## 1.2.5
+- Ajax data can now be provided as a function which is called when bound events fire
+## 1.2.6
+- Alert settings can now be set to true to use the default alert
+- Ajax data callbacks can now return false to abort the event

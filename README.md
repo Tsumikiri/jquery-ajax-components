@@ -8,8 +8,11 @@ This plugin initializes ajax components that make ajax requests when specified e
 You must create your own server-side implementation for delivering compatible JSON responses. Usually this involves a server-side scripting language like PHP or Python, some database queries, etc.
 
 ### Requirements
-This plugin requries [jQuery](https://jquery.com/download/). The plugin will make use of [SweetAlert](http://t4t5.github.io/sweetalert/) if it is available (recommended). The plugin includes its own implementation of `serializeObject` which can be overridden with your favorite implementation in the plugin configuration.
+This plugin requries [jQuery](https://jquery.com/download/). The plugin will make use of [SweetAlert](http://t4t5.github.io/sweetalert/) if it is available (recommended).
 
 ### Links
 - [User Documentation](https://cdn.rawgit.com/tsumikiri/jquery-ajax-components/master/jsdoc/out/index.html)
 - [Developer Documentation](https://cdn.rawgit.com/tsumikiri/jquery-ajax-components/master/jsdoc/out-all/index.html)
+
+### Other Stuff
+Documentation generated with [JSDoc](http://usejsdoc.org/).

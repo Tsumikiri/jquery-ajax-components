@@ -1,3 +1,0 @@
-jsdoc -d M:\plugins\jquery-ajax-components\jsdoc\out-all -u M:\plugins\jquery-ajax-components\jsdoc\tutorials -a all M:\plugins\jquery-ajax-components\jquery.ajax-components.js
-
-jsdoc -d M:\plugins\jquery-ajax-components\jsdoc\out -u M:\plugins\jquery-ajax-components\jsdoc\tutorials M:\plugins\jquery-ajax-components\jquery.ajax-components.js

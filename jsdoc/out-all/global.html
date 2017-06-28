@@ -153,7 +153,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line60">line 60</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line67">line 67</a>
     </li></ul></dd>
     
 
@@ -163,7 +163,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="http://api.jquery.com/deferred.always/">jQuery Always Callback</a></li>
+            <li><a href="http://api.jquery.com/deferred.always/">deferred.always</a></li>
         </ul>
     </dd>
     
@@ -290,7 +290,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line44">line 44</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -300,7 +300,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="http://api.jquery.com/deferred.done/">jQuery Done Callback</a></li>
+            <li><a href="http://api.jquery.com/deferred.done/">deferred.done</a></li>
         </ul>
     </dd>
     
@@ -473,7 +473,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line51">line 51</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -483,7 +483,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="http://api.jquery.com/deferred.fail/">jQuery Fail Callback</a></li>
+            <li><a href="http://api.jquery.com/deferred.fail/">deferred.fail</a></li>
         </ul>
     </dd>
     
@@ -513,6 +513,10 @@
 
 
 
+<div class="description">
+    An object containing settings for an ajax request. This is the same as the settings object for <a href="https://api.jquery.com/jQuery.ajax/">jQuery.ajax</a>. Some functions in this plugin allow the <code>data</code> key to be a function that returns the actual data (or false to abort the operation). This is not always the case. If a function is allowed for <code>data</code>, the function's documentation will specifically say so.
+</div>
+
 
 
 
@@ -548,7 +552,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line21">line 21</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -558,7 +562,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="http://api.jquery.com/jquery.ajax/">jQuery Documentation</a></li>
+            <li><a href="http://api.jquery.com/jquery.ajax/">jQuery.ajax</a></li>
         </ul>
     </dd>
     
@@ -578,6 +582,10 @@
 
 
 
+<div class="description">
+    An object containing settings for an ajax request. This is the same as the settings object for <a href="http://t4t5.github.io/sweetalert/">swal</a>. You do not need to use Sweet Alert to use this plugin, but it is highly recommended. If Sweet Alert is not available, this plugin will default to using system alerts instead. In this case, the alert options still use the Sweet Alert format, although it only supports the <code>type</code>, <code>title</code>, <code>text</code>, and <code>inputValue</code> settings.
+</div>
+
 
 
 
@@ -613,7 +621,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line26">line 26</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line29">line 29</a>
     </li></ul></dd>
     
 
@@ -757,7 +765,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line74">line 74</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line81">line 81</a>
     </li></ul></dd>
     
 
@@ -767,7 +775,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="http://api.jquery.com/jquery.each/">jQuery Each</a></li>
+            <li><a href="http://api.jquery.com/jquery.each/">jQuery.each</a></li>
         </ul>
     </dd>
     
@@ -792,10 +800,167 @@
 
             
                 
+
+    
+
+    <h4 class="name" id="DataCallback"><span class="type-signature"></span>DataCallback<span class="signature">(event)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    A callback to use instead of ajax data options (see <a href="https://api.jquery.com/jQuery.ajax/">https://api.jquery.com/jQuery.ajax/</a>|jQuery.ajax). Returns the data to use. Takes the triggering Element as <code>this</code>.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The data object (see <a href="global.html#AjaxOptions">AjaxOptions</a>)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+            
+                
 <h4 class="name" id="jqXHR">jqXHR</h4>
 
 
 
+
+<div class="description">
+    This is a type used by jQuery as an XHR wrapper. It includes a promise interface.
+</div>
 
 
 
@@ -832,7 +997,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line16">line 16</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -842,7 +1007,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="http://api.jquery.com/jquery.ajax/#jqXHR">jQuery Documentation</a></li>
+            <li><a href="http://api.jquery.com/jquery.ajax/#jqXHR">jqXHR</a></li>
         </ul>
     </dd>
     
@@ -976,7 +1141,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line66">line 66</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -986,7 +1151,7 @@
     <dt class="tag-see">See:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="http://api.jquery.com/jquery.each/">jQuery Each</a></li>
+            <li><a href="http://api.jquery.com/jquery.each/">jQuery.each</a></li>
         </ul>
     </dd>
     
@@ -1019,6 +1184,10 @@
     
 
 
+
+<div class="description">
+    <p>Duplicate keys can be serialized is different ways with this method. The implementation that ships with this plugin uses an older style of serialization where duplicate values are appended as a comma-delimited list. This is easier for some servers to parse but harder for others. Choose whichever duplicate-key serialization method that works for you.</p><p>Other implementations might turn duplicates into an array, which modern browsers translate into bracket notation when sending the data to a server. See <a href="https://github.com/hongymagic/jQuery.serializeObject">https://github.com/hongymagic/jQuery.serializeObject</a> for this modern implementation.</p><p>The plugin should be able to handle either of the duplicate-key serialization methods described here.</p>
+</div>
 
 
 
@@ -1064,7 +1233,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line38">line 38</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line42">line 42</a>
     </li></ul></dd>
     
 
@@ -1236,7 +1405,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line31">line 31</a>
+        <a href="jquery.ajax-components.js.html">jquery.ajax-components.js</a>, <a href="jquery.ajax-components.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -1283,13 +1452,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AjaxComponents.PseudoDeferred.html">PseudoDeferred</a></li></ul><h3>Namespaces</h3><ul><li><a href="AjaxComponents.html">AjaxComponents</a></li><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.ac.config.html">config</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-data-attributes.html">Data Attributes</a></li><li><a href="tutorial-delegated-events.html">Delegated Events</a></li><li><a href="tutorial-form-tags.html">Form Data</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-input-alerts.html">Input Alerts</a></li><li><a href="tutorial-server-response.html">Server Response</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AjaxComponents-PseudoDeferred.html">PseudoDeferred</a></li></ul><h3>Namespaces</h3><ul><li><a href="AjaxComponents.html">AjaxComponents</a></li><li><a href="jQuery.html">jQuery</a></li><li><a href="jQuery.ac.config.html">config</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-data-attributes.html">Data Attributes</a></li><li><a href="tutorial-delegated-events.html">Delegated Events</a></li><li><a href="tutorial-form-tags.html">Form Data</a></li><li><a href="tutorial-getting-started.html">Getting Started</a></li><li><a href="tutorial-input-alerts.html">Input Alerts</a></li><li><a href="tutorial-server-response.html">Server Response</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Wed Jun 21 2017 14:49:53 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jun 27 2017 14:15:03 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
